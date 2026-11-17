@@ -24,17 +24,17 @@ public struct ConversationListTheme {
     public var timeTheme: HippoLabelTheme
     
     static func normalTheme() -> ConversationListTheme {
-        let titleTheme: HippoLabelTheme = HippoLabelTheme(textColor: .black, textFont: UIFont.bold(ofSize: 15))
+        let titleTheme: HippoLabelTheme = HippoLabelTheme(textColor: .black, textFont: UIFont.regular(ofSize: 15))
         let lastMessageTheme: HippoLabelTheme = HippoLabelTheme(textColor: UIColor(red: 152/255 , green: 173/255, blue: 176/255, alpha: 1.0), textFont: UIFont.regular(ofSize: 14.0))
         let timeTheme: HippoLabelTheme = HippoLabelTheme(textColor: UIColor(red: 152/255 , green: 173/255, blue: 176/255, alpha: 1.0), textFont: UIFont.regular(ofSize: 12.0))
         return ConversationListTheme(titleTheme: titleTheme, lastMessageTheme: lastMessageTheme, timeTheme: timeTheme)
     }
-    
+
     static func unReadTheme() -> ConversationListTheme {
         let titleTheme: HippoLabelTheme = HippoLabelTheme(textColor: .black, textFont: UIFont.bold(ofSize: 15.0))
-        let lastMessageTheme: HippoLabelTheme = HippoLabelTheme(textColor: UIColor(red: 74/255 , green: 74/255, blue: 74/255, alpha: 1.0), textFont: UIFont.regular(ofSize: 14.0))
+        let lastMessageTheme: HippoLabelTheme = HippoLabelTheme(textColor: UIColor(red: 74/255 , green: 74/255, blue: 74/255, alpha: 1.0), textFont: UIFont.bold(ofSize: 14.0))
         let timeTheme: HippoLabelTheme = HippoLabelTheme(textColor: UIColor(red: 74/255 , green: 74/255, blue: 74/255, alpha: 1.0), textFont: UIFont.regular(ofSize: 12.0))
-        
+
         return ConversationListTheme(titleTheme: titleTheme, lastMessageTheme: lastMessageTheme, timeTheme: timeTheme)
     }
 }
@@ -42,8 +42,8 @@ public struct ConversationListTheme {
 @objc public class HippoTheme: NSObject {
     
     public class func defaultTheme(fontRegular : String = "", fontBold : String = "") -> HippoTheme {
-         HippoFont.boldFont = fontBold
-         HippoFont.regularFont = fontRegular
+        HippoFont.boldFont = fontBold
+        HippoFont.regularFont = fontRegular
         return HippoTheme()
     }
     
@@ -57,11 +57,11 @@ public struct ConversationListTheme {
     open var backgroundColor = UIColor.white //#colorLiteral(red: 0.9725490196, green: 0.9764705882, blue: 1, alpha: 1)
     open var infoIconTintColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
     open var headerBackgroundColor = UIColor.white
-    open var headerTextColor = #colorLiteral(red: 0.9882352941, green: 0.9882352941, blue: 0.9882352941, alpha: 1)//UIColor.black
+    open var headerTextColor = UIColor.black
   
     
     open var unreadCountColor : UIColor = UIColor(red: 244/255, green: 64/255, blue: 67/255, alpha: 1.0)//UIColor(red: 91/255, green: 159/255, blue: 13/255, alpha: 1.0)
-    open var themeColor: UIColor = UIColor(red: 91/255, green: 159/255, blue: 13/255, alpha: 1.0)//.white//UIColor(red: 109/255, green: 212/255, blue: 0/255, alpha: 1)//
+    open var themeColor: UIColor = UIColor(red: 22/255, green: 68/255, blue: 153/255, alpha: 1.0)//.white//UIColor(red: 109/255, green: 212/255, blue: 0/255, alpha: 1)//
     open var recievingBubbleColor : UIColor = UIColor(red: 225/255, green: 240/255, blue: 255/255, alpha: 1.0)
     
     open var themeTextcolor: UIColor = .black//.white//UIColor(red: 109/255, green: 212/255, blue: 0/255, alpha: 1)//
@@ -70,14 +70,20 @@ public struct ConversationListTheme {
     
     open var darkThemeTextColor = UIColor.white
     open var lightThemeTextColor = UIColor.black
-    
+    open var customColorforNewConversation = UIColor.white
+    open var customColorforIcons = UIColor(red: 91/255, green: 159/255, blue: 13/255, alpha: 1.0)
     open var conversationListNormalTheme: ConversationListTheme = ConversationListTheme.normalTheme()
     open var conversationListUnreadTheme: ConversationListTheme = ConversationListTheme.unReadTheme()
+    open var penSparkle: UIImage? = UIImage(named: "fluent_pen-sparkle-48-filled", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    open var sparkle: UIImage? = UIImage(named: "ph_sparkle-fill", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    open var undo: UIImage? = UIImage(named: "undo", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var informationIcon: UIImage? = UIImage(named: "dots", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    open var mediaIcon: UIImage? = UIImage(named: "Gallery", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var audioCallIcon: UIImage? = UIImage(named: "call", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var videoCallIcon: UIImage? = UIImage(named: "video", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-
-    open var noChatImage : UIImage? = UIImage(named: "noChats", in: FuguFlowManager.bundle, compatibleWith: nil)
+    open var noChatImage : UIImage? = UIImage(named: "noChat", in: FuguFlowManager.bundle, compatibleWith: nil)
+    open var noMediaImage : UIImage? = UIImage(named: "noMedia", in: FuguFlowManager.bundle, compatibleWith: nil)
+    open var noDocsImage : UIImage? = UIImage(named: "noDocs", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var emplyAddressImage : UIImage? = UIImage(named: "emplyAddress", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var noPrescription : UIImage? = UIImage(named: "emptyprescription", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var paymentIcon: UIImage? = UIImage(named: "makePayment", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
@@ -92,7 +98,8 @@ public struct ConversationListTheme {
     open var privateInternalNotesIcon: UIImage? = UIImage(named: "private+message_icon_chat_box", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
     open var deleteIcon: UIImage? = UIImage(named: "delete", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     open var eFormIcon: UIImage? = UIImage(named: "eform", in: FuguFlowManager.bundle, compatibleWith: nil)
-    
+    open var homeBubble: UIImage? = UIImage(named: "home-bubble", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+
     
 //    open var privateInternalNotesIcon: UIImage? = UIImage(named: "private+message_icon_chat_box", in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     
@@ -155,7 +162,6 @@ public struct ConversationListTheme {
     open var moreOptionsBtnTintColor: UIColor?
     open var moreOptionsIconsTintColor = UIColor.black
     open var moreOptionsTitlesTintColor = UIColor.black
-    open var addBtnTintColor: UIColor?
     
     open var actionButtonIcon: UIImage? = UIImage(named: "optionIcons", in: FuguFlowManager.bundle, compatibleWith: nil)
     open var actionButtonIconTintColor: UIColor?
@@ -345,10 +351,13 @@ public struct ConversationListTheme {
     open var directChatHeader = "Conversation List"
     open var broadcastHeader = "Broadcast Message"
     open var broadcastHistoryHeader = "Broadcast Message history"
+    open var createTicketText = "Create Ticket"
     open var promotionsAnnouncementsHeaderText = "Announcements"
     open var takeOverButtonText : String?
     open var myChatBtnText : String?
     open var allChatBtnText : String?
+    open var p2pChatBtnText : String?
+    open var supportChatBtnText : String?
     open var messagePlaceHolderText : String?
     open var noOpenAndcloseChatError : String?
     open var noChatUnderCatagoryError : String?
@@ -357,10 +366,10 @@ public struct ConversationListTheme {
 
 
 extension UIFont {
-    open class func regular(ofSize size: CGFloat) -> UIFont {
-        return UIFont(name:  HippoFont.regularFont , size: size) ?? UIFont.systemFont(ofSize: size)
+    public class func regular(ofSize size: CGFloat) -> UIFont {
+        return UIFont(name: HippoFont.regularFont, size: size) ?? UIFont.systemFont(ofSize: size)
     }
-    open class func bold(ofSize size: CGFloat) -> UIFont{
-        return UIFont(name:  HippoFont.boldFont , size: size) ?? UIFont.boldSystemFont(ofSize: size)
+    public class func bold(ofSize size: CGFloat) -> UIFont {
+        return UIFont(name: HippoFont.boldFont, size: size) ?? UIFont.boldSystemFont(ofSize: size)
     }
 }

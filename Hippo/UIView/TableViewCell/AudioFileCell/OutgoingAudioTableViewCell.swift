@@ -52,16 +52,15 @@ class OutgoingAudioTableViewCell: AudioTableViewCell {
    }
    
    func updateMessageStatus() {
-      
-//      forwardButtonView.isHidden = message!.status == .none
-      
-      switch message!.status {
-      case .none where message!.isFileUploading && !message!.wasMessageSendingFailed:
+      guard let message = message else { return }
+
+      switch message.status {
+      case .none where message.isFileUploading && !message.wasMessageSendingFailed:
          messageStatusImageView.image = HippoConfig.shared.theme.unsentMessageIcon
          activityIndicator.isHidden = false
          controlButton.isHidden = true
          activityIndicator.startAnimating()
-      case .none where message!.wasMessageSendingFailed:
+      case .none where message.wasMessageSendingFailed:
          messageStatusImageView.image = HippoConfig.shared.theme.unsentMessageIcon
          activityIndicator.isHidden = true
          controlButton.isHidden = false
@@ -74,7 +73,6 @@ class OutgoingAudioTableViewCell: AudioTableViewCell {
          activityIndicator.isHidden = true
          controlButton.isHidden = false
          messageStatusImageView.image = HippoConfig.shared.theme.readMessageTick
-         
       case .sent:
          activityIndicator.isHidden = true
          controlButton.isHidden = false
@@ -84,12 +82,12 @@ class OutgoingAudioTableViewCell: AudioTableViewCell {
    
    @IBAction override func controlButtonAction(_ sender: Any) {
       
-      if message != nil, message!.status == .none, message!.wasMessageSendingFailed {
+      if let message = message, message.status == .none, message.wasMessageSendingFailed {
          controlButton.setImage(HippoConfig.shared.theme.uploadIcon, for: .normal)
          self.activityIndicator.isHidden = false
          controlButton.isHidden = true
          self.activityIndicator.startAnimating()
-         self.delegate?.retryUploadFor(message: message!)
+         self.delegate?.retryUploadFor(message: message)
          return
       }
       
@@ -97,25 +95,19 @@ class OutgoingAudioTableViewCell: AudioTableViewCell {
    }
    
    override func updateButtonAccordingToStatus() {
-      
-      if message != nil, message!.status == .none {
-         
-         
-         if message!.wasMessageSendingFailed {
+      if let message = message, message.status == .none {
+         if message.wasMessageSendingFailed {
             self.activityIndicator.stopAnimating()
             controlButton.setImage(HippoConfig.shared.theme.uploadIcon, for: .normal)
-         } else if message!.isFileUploading {
-            
+         } else if message.isFileUploading {
             DispatchQueue.main.async {
                self.activityIndicator.isHidden = false
                self.activityIndicator.startAnimating()
                self.controlButton.setImage(nil, for: .normal)
             }
-            
          }
          return
       }
-      
       super.updateButtonAccordingToStatus()
    }
    

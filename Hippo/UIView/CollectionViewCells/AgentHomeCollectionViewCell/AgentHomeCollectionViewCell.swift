@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol AgentHomeCollectionViewCellDelegate: class {
+protocol AgentHomeCollectionViewCellDelegate: AnyObject {
     func moveToConversationWith(_ conversationObject: AgentConversation)
     func placholderButtonClicked()
 }
@@ -42,16 +42,10 @@ class AgentHomeCollectionViewCell: UICollectionViewCell {
     
     func setCellData(type: ConversationType) {
         self.conversationType = type
-        switch type {
-        case .allChat:
-            conversationList = ConversationStore.shared.allChats
-        case .myChat:
-            conversationList = ConversationStore.shared.myChats
-        case .o2oChat:
-            conversationList = ConversationStore.shared.o2oChats
-        case .historyChat:
+        guard type != .historyChat else {
             return
-         }
+        }
+        conversationList = ConversationStore.shared.conversations(for: type)
         setupCellView()
         self.tableView.reloadData()
         fuguDelay(1.5, completion: {
@@ -68,17 +62,13 @@ class AgentHomeCollectionViewCell: UICollectionViewCell {
 extension AgentHomeCollectionViewCell {
     
     func updatePaginationData() {
-        switch self.conversationType {
-        case .allChat:
-            self.isMoreToLoad = ConversationStore.shared.isMoreAllChatToLoad
-        case .myChat:
-            self.isMoreToLoad = ConversationStore.shared.isMoreMyChatToLoad
-        case .o2oChat:
-            self.isMoreToLoad = ConversationStore.shared.isMoreo2oChatToLoad
-        case .historyChat:
-                   print("history chat")
+        guard self.conversationType != .historyChat else {
+            print("history chat")
+            return
         }
+        self.isMoreToLoad = ConversationStore.shared.isMoreToLoad(for: self.conversationType)
     }
+    
     func setupCellView() {
         var message = ""
         var enableButton = false

@@ -16,7 +16,7 @@ public class HippoStrings {
     static var continue_to_whatsapp = "Continue with WhatsApp".localized
     static var ongoing = "Current".localized
     static var past = "Past".localized
-    open var newConversation = "New Conversation".localized
+    open var newConversation = "Create Conversation".localized
     static var noNetworkConnection = "No internet connected".localized
     static var connected = "Connected".localized
     static var somethingWentWrong = "Something went wrong. Please try again".localized
@@ -90,6 +90,94 @@ public class HippoStrings {
     static var description = "Description".localized
     static var notifications = "Notifications".localized
     static var submit = "Submit".localized
+    // Bot select cards (revamp)
+    static var selectOne = "Select one".localized
+    static var selectAllThatApply = "Select all that apply".localized
+    static var selectAtLeastOne = "Select at least one".localized
+    static var selectAtLeastN = "Select at least %d".localized
+    static var nSelected = "%d selected".localized
+    static var nOfMaxSelected = "%d of %d selected".localized
+    static var submitted = "Submitted".localized
+    static var chooseOptionAbove = "Choose an option above".localized
+    // Bot date / time sheet (revamp)
+    static var botSelectMonth = "Select month".localized
+    static var botSelected = "Selected".localized
+    static var botNoDateSelected = "No date selected".localized
+    static var botTime = "Time".localized
+    static var botTimeHint = "24-hour · type or scroll".localized
+    static var botHours = "Hours".localized
+    static var botMinutes = "Minutes".localized
+    static var botSeconds = "Seconds".localized
+    static var botScrollHint = "Scroll or tap to choose".localized
+    static var botScrollHint24h = "Scroll or tap to choose · 24-hour".localized
+    static var botConfirm = "Confirm".localized
+    static var botDone = "Done".localized
+    static var botTimeInPast = "Pick a time later than now".localized
+    static var botTimeInFuture = "Pick a time earlier than now".localized
+    static var botInvalidUrlPrefix = "Please enter a valid URL starting with".localized
+    static var botInvalidUrlOr = "or".localized
+    // Bot lead / ticket form card (revamp)
+    static var formStep = "Step %d of %d".localized
+    static var formSubmitted = "Submitted".localized
+    static var formSkip = "Skip".localized
+    static var formSkipped = "Skipped".localized
+    static var formDone = "Done".localized
+    static var formCompleteAbove = "Complete the form above".localized
+    static var formTypeAnswer = "Type your answer".localized
+    static var formPhEmail = "name@company.com".localized
+    static var formPhName = "Full name".localized
+    static var formPhPhone = "Phone number".localized
+    static var formPhSubject = "Briefly describe the issue".localized
+    static var formPhDescription = "Add as much detail as you can".localized
+    static var formPhGroup = "Select group type".localized
+    static var formPhPriority = "Select priority".localized
+    static var formLabelEmail = "Email".localized
+    static var formLabelName = "Name".localized
+    static var formLabelPhone = "Phone".localized
+    static var formLabelSubject = "Subject".localized
+    static var formLabelDescription = "Description".localized
+    static var formLabelAttachments = "Attachments".localized
+    static var formLabelGroup = "Group".localized
+    static var formLabelPriority = "Priority".localized
+    static var formErrEmail = "Enter a valid email address".localized
+    static var formErrEmpty = "Field can’t be empty".localized
+    static var formErrPhone = "Enter a valid phone number".localized
+    static var formErrNumber = "Enter numbers only".localized
+    static var formErrSelect = "Select an option".localized
+    static var formErrUpload = "Upload at least one file, or skip".localized
+    static var formUploadTap = "Tap to upload files".localized
+    static var formUploadLimit = "Up to %@ each".localized
+    static var formUploadFailed = "Upload failed · Tap to retry".localized
+    static var formUploading = "Uploading…".localized
+    static var formNoOptions = "No options available".localized
+    static var formLoadingOptions = "Loading…".localized
+    static var formTicketCreated = "Ticket created".localized
+    static var formTicketEmail = "Updates will be emailed to %@".localized
+    static var formNotSet = "Not set".localized
+    static var formNone = "None".localized
+    static var formNFiles = "%d files".localized
+    static var formOneFile = "1 file".localized
+    static var videoPlayingInPip = "This video is playing in picture in picture.".localized
+    static var paySelectPlan = "Select a plan".localized
+    static var payProceed = "Proceed to Pay".localized
+    static var payProcessing = "Processing payment…".localized
+    static var payDontClose = "Please don’t close this screen".localized
+    static var paySuccess = "Payment successful".localized
+    static var paySuccessText = "Your %@ plan is now active.".localized
+    static var payAmount = "Amount".localized
+    static var payPlan = "Plan".localized
+    static var payTransaction = "Transaction ID".localized
+    static var payCompleteAbove = "Complete the payment above".localized
+    static var payInProgress = "Payment in progress".localized
+    static var locSelect = "Select location".localized
+    static var locSearchHint = "Search for area, street, landmark".localized
+    static var locUseCurrent = "Use current location".localized
+    static var locFinding = "Finding your location…".localized
+    static var locTapToAllow = "Allow location access to use it".localized
+    static var locUnavailable = "Couldn’t get your location. Tap to retry".localized
+    static var locNearby = "Nearby".localized
+    static var locNoResults = "No places found".localized
+    static var locSearching = "Searching…".localized
     static var totalPrice = "Total Price".localized
     static var yes = "Yes".localized
     static var logout = "Are you sure you want to logout?".localized
@@ -126,13 +214,34 @@ public class HippoStrings {
     static var shareVideoUrl = "Share Video Call Link"
     static var sentACallInvite = "Sent a Call Invite"
     static var recievedACallInvite = "Recieved a Call Invite"
-    static var sharedMediaTitle = "Shared Media"
+    static var sharedMediaTitle = "Shared Media".localized
+    /// Backend key: media_txt
+    static var sharedMediaTabMedia = "Media".localized
+    /// Backend key: docs_txt
+    static var sharedMediaTabDocs = "Docs".localized
+    /// Backend key: hippo_no_media
+    static var sharedMediaNoMedia = "No media shared yet".localized
+    /// Backend key: hippo_no_documents
+    static var sharedMediaNoDocs = "No documents shared yet".localized
+    static var sharedMediaVoiceMessage = "Voice message".localized
+    static var sharedMediaAudioFile = "Audio file".localized
+    static var sharedMediaGenericDocument = "Document".localized
+    /// "%@" is the uppercased file extension, e.g. "PDF document".
+    static var sharedMediaDocumentFormat = "%@ document".localized
+    static var recordingTooShort = "Recording is too short.".localized
+    static var microphoneAccessMessage = "Enable microphone access in Settings to record voice messages.".localized
+    static var openSettings = "Settings".localized
+    static var photoLibraryAccessMessage = "Enable photo access in Settings to share photos and videos.".localized
+    static var cameraAccessMessage = "Enable camera access in Settings to take photos and videos.".localized
+    static var locationAccessMessage = "Enable location access in Settings to share your current location.".localized
+    static var fetchingLocation = "Getting your location…".localized
+    static var locationUnavailable = "Couldn't get your location. Please try again.".localized
     
     /// Agent sdk
     static var thanksForFeedback = "Thank you for your comments!".localized
     static var closed = "Closed".localized
     static var openChat = "Open Chats".localized
-    static var newConversation = "New Conversation".localized
+    static var newConversation = "Create Conversation".localized
     static var actions = "Actions".localized
     static var closeChat = "Close Chat".localized
     static var closeChats = "Close Chats".localized
@@ -167,6 +276,7 @@ public class HippoStrings {
     static var mentionedYou = "mentioned you".localized
     static var missedCallFrom = "you missed call from".localized
     static var allChats = "All Chats".localized
+    static var p2pChats = "P2P Chats".localized
     static var text = "Text".localized
     static var internalNotes = "Internal Notes".localized
     static var bot = "Bot".localized
@@ -198,6 +308,7 @@ public class HippoStrings {
     static var reasignChat = "Are you sure, you want to reassign?".localized
     static var reasignChatToYou = "Are you sure, you want to reassign this chat to you?".localized
     static var saved = "Saved!".localized
+    static var savedReplies = "Saved Replies".localized
     static var imageSaved = "Image has been saved to your photos.".localized
     static var reopenChat = "Reopen Chat".localized
     static var noDataFound = "No data found!"
@@ -228,7 +339,10 @@ public class HippoStrings {
     static var requiredField = "Field is required"
     static var enterValidEmail = "Enter valid email"
     static var more = "more"
-
+    static var preview = "Preview"
+    static var slideToCancel = "Slide to cancel"
+    static var pleaseSelectAnOption = "Please select an option"
+    static var cannotReplyToConversation = "You cannot reply to this conversation".localized
     static var meeting = "Meeting"
     static var businessMeet = "Business Meet"
     static var joinCallNow = "Join Call Now"
@@ -236,6 +350,7 @@ public class HippoStrings {
     static var selectDate = "Select Date"
 
     static var selectTime = "Select Time"
+    static var selectDateTime = "Select date & time".localized
 
     static var selectAddress = "Enter Address"
 

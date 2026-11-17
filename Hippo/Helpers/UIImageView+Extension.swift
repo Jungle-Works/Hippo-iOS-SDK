@@ -20,7 +20,6 @@ extension UIImageView {
         }
         self.kf.setImage(with: imageURL, placeholder: placeHolderImage, completionHandler: {(image, error, _, _) in
             self.clipsToBounds = true
-            self.clipsToBounds = true
             self.layer.masksToBounds = true
         })
     }

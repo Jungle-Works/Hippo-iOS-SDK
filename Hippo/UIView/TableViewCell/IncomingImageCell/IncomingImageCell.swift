@@ -67,6 +67,10 @@ class IncomingImageCell: MessageTableViewCell {
 //        }
     }
     
+    /// Called by configureIncomingCell() right after the caption is shown/hidden, before
+    /// the table measures the row - subclasses update caption-dependent constraints here.
+    func captionVisibilityDidChange() { }
+
     func adjustShadow() {
         shadowView.layoutIfNeeded()
         shadowView.clipsToBounds = true
@@ -117,10 +121,13 @@ extension IncomingImageCell {
         if channelId <= 0 {
             
         } else {
+//            let timeOfMessage = changeDateToParticularFormat(chatMessageObject.creationDateTime, dateFormat: "h:mm a", showInFormat: true)
+//            let timeString = "\t" + "\(timeOfMessage)"
+//            timeLabel.text = message?.messageState == MessageState.MessageEdited ? "(\(HippoStrings.edited)) " + timeString : timeString
             self.setTime()
         }
         
-        if let thumbnailUrl = chatMessageObject.thumbnailUrl, thumbnailUrl.isEmpty == false, let url = URL(string: thumbnailUrl) {
+        if let thumbnailUrl = chatMessageObject.thumbnailUrl, !thumbnailUrl.isEmpty, let url = URL(string: thumbnailUrl) {
             setupIndicatorView(true)
             let placeHolderImage = HippoConfig.shared.theme.placeHolderImage
             
@@ -142,13 +149,16 @@ extension IncomingImageCell {
             })
         }
         
-        textView.text = message?.message
+        textView.text = "\(message?.message ?? "")\n"
         
         if (message?.message.isEmpty ?? true) || (message?.type == .imageFile && message?.message.lowercased() == "image"){
             textView.isHidden = true
         }else{
             textView.isHidden = false
         }
+        captionVisibilityDidChange()
+        
+//        textView.isHidden = message?.message ?? "" == "" ? true : false
         
         return self
     }

@@ -55,7 +55,46 @@ class P2PUnreadData {
         }
         return ""
     }
-    
+
+    /**
+        * Sets the saved count for a channel to 0 and tells the app.
+        * Used when the chat was opened without a transaction id (e.g. from a notification).
+        * Keeps the saved id and muid, because later updates compare against them.
+    */
+    func clearCount(channelId : Int){
+        guard channelId > 0 else { return }
+        let transactionId = getTransactionId(with: channelId)
+        guard !transactionId.isEmpty, var data = getData(with: transactionId) else { return }
+        guard (data.count ?? 0) != 0 else { return }
+        data.count = 0
+        p2pChannelCount[transactionId] = data
+        HippoConfig.shared.sendp2pUnreadCount(0, channelId)
+    }
+
+    /**
+        * Transaction ids of saved chats with this person whose channel doesn't exist yet
+        * (channelId -1 or -2), i.e. chats still waiting for their first message.
+    */
+    func pendingTransactionIds(otherUserUniqueKey : String) -> [String]{
+        return p2pChannelCount.compactMap { (transactionId, data) in
+            guard (data.channelId ?? -1) <= 0,
+                  data.id == transactionId + "-" + otherUserUniqueKey else { return nil }
+            return transactionId
+        }
+    }
+
+    /**
+        * Asks the server for the count of each chat. On success the saved entry gets the real
+        * channel id and the app gets sendp2pUnreadCount.
+    */
+    func refreshFromServer(transactionIds : [String], otherUserUniqueKey : String){
+        let myKey = HippoConfig.shared.userDetail?.userUniqueKey ?? ""
+        for transactionId in transactionIds {
+            guard let request = PeerToPeerChat(uniqueChatId: transactionId, myUniqueId: myKey, idsOfPeers: [otherUserUniqueKey], channelName: "") else { continue }
+            UnreadCount.fetchP2PUnreadCount(request: request) { _, _ in }
+        }
+    }
+
 }
 
 struct P2PData {

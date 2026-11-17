@@ -99,7 +99,8 @@ class HippoActionMessage: HippoMessage {
         
         if let attributtedMessage = responseMessage?.attributtedMessage {
             if responseMessage?.type == .imageFile {
-                cellDetail?.responseHeight = 250
+                // Customer: CustomerOutgoingImageCell, same 288 as a sent image in the chat.
+                cellDetail?.responseHeight = HippoConfig.shared.appUserType == .customer ? 288 : 250
             }else if responseMessage?.type == .attachment {
                 switch responseMessage?.concreteFileType {
                 case .video:
@@ -107,11 +108,22 @@ class HippoActionMessage: HippoMessage {
                 default:
                     cellDetail?.responseHeight = 80
                 }
+            }else if usesAddressAnswerBubble {
+                cellDetail?.responseHeight = BotAddressAnswerCell.height(for: self)
             }else {
                 let nameHeight: CGFloat = HippoConfig.shared.appUserType == .agent ? attributtedMessage.nameHeight : 0
                 cellDetail?.responseHeight = attributtedMessage.messageHeight + attributtedMessage.timeHeight + nameHeight + 10
             }
-            cellDetail?.actionHeight = nil
+            if usesRevampedChips {
+                // Chips stay on screen (picked one filled, the rest locked) above the answer.
+                cellDetail?.actionHeight = customerChipsHeight() + 22
+                cellDetail?.stacksResponseUnderActions = true
+            } else {
+                cellDetail?.actionHeight = nil
+            }
+        } else if usesRevampedChips {
+            // Chip row: 5 top + chips + 12 time line + 5 bottom (ActionTagTableViewCell.xib).
+            cellDetail?.actionHeight = customerChipsHeight() + 22
         } else {
             let buttonHeight = buttonsHeight() //(buttons?.count ?? 0) * 50
             cellDetail?.actionHeight = CGFloat(buttonHeight) + 15 + 10 + 10 //Button Height + (timeLabelHeight + time gap from top) + padding
@@ -122,6 +134,45 @@ class HippoActionMessage: HippoMessage {
     }
     
     
+    /// Customer answers to a bot address question use the address bubble (BotAddressAnswerCell).
+    var usesAddressAnswerBubble: Bool {
+        return type == .address && HippoConfig.shared.appUserType == .customer && responseMessage != nil
+    }
+
+    /// Customer quick-reply buttons (type 20) use the revamped chips (ActionTagTableViewCell).
+    var usesRevampedChips: Bool {
+        return type == .consent && HippoConfig.shared.appUserType == .customer && !(buttons ?? []).isEmpty
+    }
+
+    /// Chip metrics shared with ActionTagTableViewCell: 36pt tall, 15pt side padding, 8pt gaps.
+    static let chipFont = UIFont.systemFont(ofSize: 14.5, weight: .medium)
+    static let chipHeight: CGFloat = 36
+    static let chipPaddingX: CGFloat = 15
+    static let chipGap: CGFloat = 8
+
+    /// Height of the wrapped chip rows, mirroring TagListView's layout (right-aligned rows).
+    func customerChipsHeight() -> CGFloat {
+        guard let buttons = buttons, !buttons.isEmpty else { return 0 }
+        // Chat table + ActionTableView + ActionTagTableViewCell insets, rounded up: an over-estimate
+        // only adds a little space, an under-estimate would clip a row of chips.
+        let maxWidth = windowScreenWidth - 56
+        var rows = 1
+        var rowWidth: CGFloat = 0
+        for each in buttons {
+            let textWidth = (each.title as NSString).size(withAttributes: [.font: HippoActionMessage.chipFont]).width
+            let w = min(maxWidth, ceil(textWidth) + HippoActionMessage.chipPaddingX * 2)
+            if rowWidth == 0 {
+                rowWidth = w
+            } else if rowWidth + HippoActionMessage.chipGap + w > maxWidth {
+                rows += 1
+                rowWidth = w
+            } else {
+                rowWidth += HippoActionMessage.chipGap + w
+            }
+        }
+        return CGFloat(rows) * HippoActionMessage.chipHeight + CGFloat(rows - 1) * HippoActionMessage.chipGap
+    }
+
     func buttonsHeight() -> CGFloat {
         guard let buttons = buttons, !buttons.isEmpty else {
             return 0
@@ -191,7 +242,6 @@ class HippoActionMessage: HippoMessage {
             tryToSetResponseMessageForAttachment()
         }else{
             if !contentValues.isEmpty {
-                contentValues.append(contentsOf: customButtons)
                 let list = contentValues
                 let (buttons, selectedButton) = HippoActionButton.getArray(array: list, selectedId: selectedId)
                 self.tryToSetResponseMessage(selectedButton: selectedButton)
@@ -238,42 +288,3 @@ class HippoActionMessage: HippoMessage {
         return button
     }
 }
-
-let customButtons: [[String: Any]] = [
-  [
-    "btn_id": "451",
-    "btn_color": "#FFFFFF",
-    "btn_title": "Agent List",
-    "btn_title_color": "#000000",
-    "btn_selected_color": "#1E7EFF",
-    "action": "AGENTS",
-    "btn_title_selected_color": "#FFFFFF"
-  ],
-  [
-    "btn_id": "454",
-    "btn_color": "#FFFFFF",
-    "btn_title": "audio call",
-    "btn_title_color": "#000000",
-    "btn_selected_color": "#1E7EFF",
-    "action": "AUDIO_CALL",
-    "btn_title_selected_color": "#FFFFFF"
-  ],
-  [
-    "btn_id": "455",
-    "btn_color": "#FFFFFF",
-    "btn_title": "video call",
-    "btn_title_color": "#000000",
-    "btn_selected_color": "#1E7EFF",
-    "action": "VIDEO_CALL",
-    "btn_title_selected_color": "#FFFFFF"
-  ],
-  [
-    "btn_id": "455",
-    "btn_color": "#FFFFFF",
-    "btn_title": "Continue chat",
-    "btn_title_color": "#000000",
-    "btn_selected_color": "#1E7EFF",
-    "action": "CONTINUE_CHAT",
-    "btn_title_selected_color": "#FFFFFF"
-  ]
-]

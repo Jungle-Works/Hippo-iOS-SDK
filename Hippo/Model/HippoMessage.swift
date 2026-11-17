@@ -45,7 +45,6 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     var message: String
     var senderId: Int
     var senderFullName: String
-    
     var status: ReadUnReadStatus = .none {
         didSet {
             statusChanged?()
@@ -65,6 +64,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     var attributtedMessage = MessageUIAttributes(message: "", senderName: "", isSelfMessage: false)
     var chatType: ChatType = .other
     var keyboardType: responseKeyboardType = .defaultKeyboard
+    /// True when the payload carried `input_type`, so a later copy without it can't reset it.
+    var isKeyboardTypeKnown = false
     
     var taggedUsers: [Int]?
     
@@ -104,6 +105,9 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     
     var callDurationInSeconds: TimeInterval?
     var callType = CallType.video
+    /// False when the source payload (e.g. the conversation-list last message) gave
+    /// no `call_type` — the preview then omits the "video"/"voice" word.
+    var isCallTypeKnown = true
     var messageSource: IntegrationSource = .normal
     var customAction :CustomAction?
     var fileUrl: String?
@@ -136,6 +140,9 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
     //
     var isActive: Bool = true
     var isSkipBotEnabled: Bool = false
+    /// The server said whether Skip is allowed (is_skip_button present). Pushes without the key
+    /// must not switch Skip off, nor send 0 back with the next answer (Android does the same).
+    var isSkipBotEnabledKnown: Bool = false
     var isSkipEvent: Bool = false
     var isFromBot: Int?
     var isSearchFlow : Bool = false
@@ -196,7 +203,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
                 height += card.cardHeight
             }
 //            return height + 5
-            return height + 9
+            return height + 40
         case .multipleSelect :
             guard let action = customAction else {
                 return 0.01
@@ -206,6 +213,13 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
                 h += each.cardHeight
             }
             
+            if CustomAction.usesRevampedCard {
+                // name label is empty (5 top + 3 gap), footer: Submit row 61 or "Submitted" 34, then
+                // the card's bottom padding. The time sits in the header row, as on Android.
+                let answered = action.isReplied == 1
+                let footer: CGFloat = answered ? 34 : 61
+                return h + action.messageHeight + footer + 8 + MultiSelectTableViewCell.revampedBottomPadding(answered: answered)
+            }
             if action.isReplied == 1
             {
                 return h + action.messageHeight +  attributtedMessage.timeHeight + attributtedMessage.nameHeight + 10
@@ -284,19 +298,8 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         
         if let inputType = dict["input_type"] as? String
         {
-            if inputType == responseKeyboardType.numberKeyboard.rawValue
-            {
-                self.keyboardType = .numberKeyboard
-            }
-            else if inputType == responseKeyboardType.none.rawValue
-            {
-                self.keyboardType = .none
-            }
-            else
-            {
-                self.keyboardType = .defaultKeyboard
-            }
-            
+            self.keyboardType = responseKeyboardType(inputType: inputType)
+            self.isKeyboardTypeKnown = true
         }
         if let state = dict["message_state"] as? Int {
             isDeleted = state == 0
@@ -336,6 +339,7 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         }
         isFromBot = Int.parse(values: dict, key: "is_from_bot")
         isSkipBotEnabled = Bool.parse(key: "is_skip_button", json: dict, defaultValue: false)
+        isSkipBotEnabledKnown = dict["is_skip_button"] != nil && !(dict["is_skip_button"] is NSNull)
         isSkipEvent = Bool.parse(key: "is_skip_event", json: dict, defaultValue: false)
         fileSize = dict["file_size"] as? String
         fileName = dict["file_name"] as? String
@@ -513,8 +517,17 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         let senderFullName = (convoDict["last_sent_by_full_name"] as? String) ?? ""
         self.senderFullName = senderFullName//.formatName()
         self.callDurationInSeconds = convoDict["video_call_duration"] as? Double
-        if let rawCallType = convoDict["call_type"] as? String, let callType = CallType(rawValue: rawCallType.uppercased()) {
+        // The getAllConversations last-message payload carries no `call_type` for a
+        // call (its `message` is a constant "Video call will be supported soon."
+        // regardless of medium), so `callType` would always default to .video and
+        // every preview read "video". Only trust it when the key is actually present;
+        // otherwise mark the medium unknown so the preview drops the "video"/"voice"
+        // word instead of guessing wrong.
+        let rawCallType = (convoDict["call_type"] as? String) ?? (convoDict["last_call_type"] as? String)
+        if let rawCallType = rawCallType, let callType = CallType(rawValue: rawCallType.uppercased()) {
             self.callType = callType
+        } else if self.type == .call {
+            self.isCallTypeKnown = false
         }
         
         if let rawStatus = convoDict["last_message_status"] as? Int, let status = ReadUnReadStatus(rawValue: rawStatus) {
@@ -679,7 +692,9 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
             
             json["user_id"] = currentUserId()
             json["content_value"] = contentValues
-            json["is_skip_button"] = isSkipBotEnabled
+            if isSkipBotEnabledKnown || isSkipEvent {
+                json["is_skip_button"] = isSkipBotEnabled
+            }
             json["is_skip_event"] = isSkipEvent
             if let is_from_bot = isFromBot {
                 json["is_from_bot"] = is_from_bot
@@ -695,6 +710,16 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         
         if customAction != nil{
             json["custom_action"] = getDicForCustomAction()
+        }
+        if type == .multipleSelect {
+            // The answer comes from the customer. A multiselect loaded from getMessages has the
+            // bot as sender (user_id 0) and no notification_type, so without this the server got
+            // a "bot replying to itself" and never sent the bot's next message. Live pushes
+            // already carry these values, which is why answering in one go worked.
+            json["user_id"] = currentUserId()
+            if notification == nil {
+                json["notification_type"] = NotificationType.message.rawValue
+            }
         }
         return json
     }
@@ -771,6 +796,11 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         }
         dict["call_type"] = callType.rawValue
         dict["integration_source"] = messageSource.rawValue
+        // The bot's input_type (URL, phone, ...) - without it a reopened chat loses the
+        // question's composer rules (e.g. no mic / plus for a URL question).
+        if isKeyboardTypeKnown {
+            dict["input_type"] = keyboardType.rawValue
+        }
         return dict
     }
     
@@ -960,7 +990,14 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         senderFullName = newObject.senderFullName
         
         isSkipEvent = newObject.isSkipEvent
-        isSkipBotEnabled = newObject.isSkipBotEnabled
+        if newObject.isKeyboardTypeKnown {
+            keyboardType = newObject.keyboardType
+            isKeyboardTypeKnown = true
+        }
+        if newObject.isSkipBotEnabledKnown {
+            isSkipBotEnabled = newObject.isSkipBotEnabled
+            isSkipBotEnabledKnown = true
+        }
         
         messageRefresed?()
     }
@@ -1017,6 +1054,28 @@ class HippoMessage: MessageCallbacks, FuguPublishable {
         return unhandledMimeType.contains(parsedType)
     }
     
+    /// The bot form field the user should answer next: the first shown field that isn't
+    /// completed. Built from the server's `values` (FormData.getArray) and kept current by
+    /// local submits, so it's right both before and after the server echoes the form back.
+    /// nil when every field is answered.
+    var nextFormFieldIndex: Int? {
+        guard type == .leadForm || type == .createTicket else { return nil }
+        return leadsDataArray.firstIndex(where: { $0.isShow && !$0.isCompleted })
+    }
+
+    /// True when `other` shows the same form progress (same fields, answers, completed and
+    /// shown state, skip state) - e.g. the server echoing back a form we just submitted.
+    func hasSameFormProgress(as other: HippoMessage) -> Bool {
+        guard isSkipEvent == other.isSkipEvent,
+              leadsDataArray.count == other.leadsDataArray.count else { return false }
+        return zip(leadsDataArray, other.leadsDataArray).allSatisfy { mine, theirs in
+            mine.title == theirs.title
+                && mine.value == theirs.value
+                && mine.isCompleted == theirs.isCompleted
+                && mine.isShow == theirs.isShow
+        }
+    }
+
     func shouldShowSkipButton() -> Bool {
         var isAllFieldCompleted: Bool = true
         

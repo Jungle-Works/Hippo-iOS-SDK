@@ -29,6 +29,15 @@ class HippoChecker {
         }
     }
     
+    func presentFlutterChatsViewController() {
+        AgentDetail.setAgentStoredData()
+        switch config.appUserType {
+        case .customer:
+            FuguFlowManager.shared.presentFlutterCustomerConversations()
+        case .agent:
+            FuguFlowManager.shared.presentAgentConversations()
+        }
+    }
     func presentChatsViewController(on viewController: UIViewController) {
            AgentDetail.setAgentStoredData()
            switch config.appUserType {
@@ -43,6 +52,16 @@ class HippoChecker {
     {
         FuguFlowManager.shared.presentPromotionalpushController()
     }
+    
+    func presentTicketController(){
+        AgentDetail.setAgentStoredData()
+        FuguFlowManager.shared.presentTicketPushController()
+    }
+    
+    func presentOtpController(){
+        FuguFlowManager.shared.presentOtpPushController()
+    }
+    
     
     
     

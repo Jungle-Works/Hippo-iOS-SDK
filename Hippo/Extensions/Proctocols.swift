@@ -34,8 +34,7 @@ extension CaseCountable where Self : RawRepresentable, Self.RawValue == Int {
 }
 
 
-public protocol HippoDelegate: class {
-    func hippoAnnouncementCustomerUnreadCount(_ totalCount: Int)
+public protocol HippoDelegate: AnyObject {
     func hippoUnreadCount(_ totalCount: Int)
     func hippoUserUnreadCount(_ usersCount: [String: Int])    
     func hippoDeinit()
@@ -52,7 +51,7 @@ public protocol HippoDelegate: class {
     func sendp2pUnreadCount(unreadCount : Int, channelId : Int)
     func chatListButtonAction()
     func passSecurityCheckError(error : String)
-    
+    func hippoAnnouncementCustomerUnreadCount(_ totalCount: Int)
     #if canImport(HippoCallClient)
      func loadCallPresenterView(request: CallPresenterRequest) -> CallPresenter?
     func didReceiveCallSignalType(_ type: JitsiCallSignal.JitsiSignalType)
@@ -87,16 +86,16 @@ extension HippoDelegate {
     }
 }
 
-protocol RetryMessageUploadingDelegate: class {
+protocol RetryMessageUploadingDelegate: AnyObject {
     func retryUploadFor(message: HippoMessage)
     func cancelImageUploadFor(message: HippoMessage)
 }
 
-protocol DocumentTableViewCellDelegate: class {
+protocol DocumentTableViewCellDelegate: AnyObject {
     func performActionAccordingToStatusOf(message: HippoMessage, inCell cell: DocumentTableViewCell)
 }
 
-protocol VideoTableViewCellDelegate: class {
+protocol VideoTableViewCellDelegate: AnyObject {
     func downloadFileIn(message: HippoMessage)
     func openFileIn(message: HippoMessage)
 }

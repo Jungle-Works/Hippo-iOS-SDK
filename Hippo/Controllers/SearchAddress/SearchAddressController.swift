@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol SearchAddressControllerProtocol : class{
+protocol SearchAddressControllerProtocol : AnyObject{
     func addressSelected(address: Address)
 }
 

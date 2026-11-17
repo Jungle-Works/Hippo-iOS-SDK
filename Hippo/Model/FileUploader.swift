@@ -50,6 +50,7 @@ struct FileUploader {
         DispatchQueue.global(qos: .userInitiated).async {
             
             let parameters = getParamsToUploadImageWith(for: request)
+            print(parameters)
             HTTPClient.makeConcurrentConnectionWith(method: .POST, para: parameters, extendedUrl: FuguEndPoints.getUploadFileUrl.rawValue) { (response, error, _, statusCode) in
                 if error != nil, let statusCode = (response as? NSDictionary)?.value(forKey: "statusCode") as? Int{
                     if statusCode == 400{
@@ -73,7 +74,7 @@ struct FileUploader {
                     }
                     return
                 }
-                if request.mimeType.contains("video") || request.mimeType.contains("mp4"){
+                if request.mimeType.contains("video") || request.mimeType.contains("mp4") || request.mimeType.contains("mov"){
                     fileData.thumbnailImage = generateThumbnail(path: pathURL)
                 }
                 
@@ -82,28 +83,30 @@ struct FileUploader {
         }
     }
     
-    static func hitFileUrlAndUploadThumbnail(data: Data, fileData : FileUploadData, request: RequestParams, completion: @escaping (FileUploader.Result) -> Void) {
+    static func hitFileUrlAndUploadThumbnail(data: Data, fileData: FileUploadData, request: RequestParams, completion: @escaping (FileUploader.Result) -> Void) {
         
-        if let thumnailUploadUrl = URL(string: fileData.thumbnailUploadUrl ?? ""){
-            var urlRequest = URLRequest.init(url: thumnailUploadUrl, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: 60)
-            
+        if let thumbnailUploadUrl = URL(string: fileData.thumbnailUploadUrl ?? "") {
+            var urlRequest = URLRequest(url: thumbnailUploadUrl, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: 60)
             urlRequest.httpMethod = "PUT"
             urlRequest.setValue("binary/octet-stream", forHTTPHeaderField: "Content-Type")
             
-            if let thumnailData = fileData.thumbnailImage?.pngData(){
-                URLSession.shared.uploadTask(with: urlRequest, from:thumnailData) { (data, response, error) in
+            if let thumbnailData = fileData.thumbnailImage?.pngData() {
+                URLSession.shared.uploadTask(with: urlRequest, from: thumbnailData) { (_, response, error) in
                     if error != nil {
-                        let result = Result(isSuccessful: false, error: nil, imageUrl: nil, imageThumbnailUrl: nil, fileUrl: nil, status: nil)
+                        let result = Result(isSuccessful: false, error: error, imageUrl: nil, imageThumbnailUrl: nil, fileUrl: nil, status: nil)
                         completion(result)
-                    }else{
-                        self.hitFileUrlAndUploadFile(data: data ?? Data(), fileData: fileData, request: request, completion: completion)
+                    } else {
+                        self.hitFileUrlAndUploadFile(data: data, fileData: fileData, request: request, completion: completion)
                     }
-                }.resume();
+                }.resume()
+            } else {
+                self.hitFileUrlAndUploadFile(data: data, fileData: fileData, request: request, completion: completion)
             }
-        }else{
-            self.hitFileUrlAndUploadFile(data: data , fileData: fileData, request: request, completion: completion)
+        } else {
+            self.hitFileUrlAndUploadFile(data: data, fileData: fileData, request: request, completion: completion)
         }
     }
+
     
     
     static func hitFileUrlAndUploadFile(data: Data, fileData : FileUploadData, request: RequestParams, completion: @escaping (FileUploader.Result) -> Void) {
@@ -192,7 +195,7 @@ extension FileUploader{
             let thumbnail = UIImage(cgImage: cgImage)
             return thumbnail
         } catch let error {
-            print("*** Error generating thumbnail: \(error.localizedDescription)")
+            HippoConfig.shared.log.debug(error.localizedDescription ?? "", level: .error)
             return nil
         }
     }

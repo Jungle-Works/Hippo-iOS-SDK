@@ -31,7 +31,7 @@ public class FuguAttributes: NSObject {
         // than localhost is not aviable.
         // if port is 0, bind will assign some free port for us
         
-        var port: UInt16 = 0
+        let port: UInt16 = 0
         let hosts = [String(cString: temp)]//["localhost", String(cString: temp)]
         var hints = addrinfo()
         hints.ai_flags = 0

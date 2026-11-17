@@ -29,7 +29,10 @@ class AgentHomeViewController: HippoHomeViewController {
     @IBOutlet weak var broadCastButton: UIButton!
     @IBOutlet weak var myChatButton: UIButton!
     @IBOutlet weak var allChatButton: UIButton!
-    @IBOutlet weak var o2oChatButton : UIButton!
+    @IBOutlet weak var p2pChatButton : UIButton!
+    @IBOutlet weak var supportChatButton : UIButton!
+    @IBOutlet weak var tabScrollView: UIScrollView!
+    @IBOutlet weak var tabStackView: UIStackView!
     @IBOutlet weak var buttonContainerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomViewLeadingConstraint: NSLayoutConstraint!
 //    @IBOutlet weak var backButton: UIButton!
@@ -41,6 +44,44 @@ class AgentHomeViewController: HippoHomeViewController {
 //    @IBOutlet weak var filterButton: UIButton!
     @IBOutlet weak var view_NavigationBar : NavigationBar!
     @IBOutlet weak var width_bottomLineView : NSLayoutConstraint!
+    
+    /// Tabs currently on screen, in display order. Drives the tab bar layout,
+    /// the underline geometry and which stores are fetched.
+    private var visibleTabs: [ConversationType] = []
+    /// Tabs whose first page has already been requested this session.
+    private var fetchedTabs: Set<ConversationType> = []
+    /// Guards the underline re-layout in viewDidLayoutSubviews against re-entry.
+    private var lastLaidOutTabWidth: CGFloat = 0
+    
+    private func button(for tab: ConversationType) -> UIButton? {
+        switch tab {
+        case .myChat:
+            return myChatButton
+        case .allChat:
+            return allChatButton
+        case .p2pChat:
+            return p2pChatButton
+        case .supportChat:
+            return supportChatButton
+        case .historyChat:
+            return nil
+        }
+    }
+    
+    private func title(for tab: ConversationType) -> String {
+        switch tab {
+        case .myChat:
+            return HippoConfig.shared.theme.myChatBtnText ?? HippoStrings.myChats
+        case .allChat:
+            return HippoConfig.shared.theme.allChatBtnText ?? HippoStrings.allChats
+        case .p2pChat:
+            return HippoConfig.shared.theme.p2pChatBtnText ?? HippoStrings.p2pChats
+        case .supportChat:
+            return HippoConfig.shared.theme.supportChatBtnText ?? HippoStrings.supportChats
+        case .historyChat:
+            return ""
+        }
+    }
     
     //MARK: ViewDidload
     override func viewDidLoad() {
@@ -63,6 +104,22 @@ class AgentHomeViewController: HippoHomeViewController {
         }
         Business.shared.restoreAllSavedInfo()
         setUpButtonContainerView()
+        openAlertIfNotificationsNotAllowed()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        guard let selected = button(for: conversationType), !selected.isHidden else {
+            return
+        }
+        // Only act when the geometry actually changed, otherwise the constraint
+        // update would retrigger layout indefinitely.
+        guard selected.frame.size.width != lastLaidOutTabWidth || bottomViewLeadingConstraint.constant != selected.frame.origin.x else {
+            return
+        }
+        lastLaidOutTabWidth = selected.frame.size.width
+        bottomViewLeadingConstraint.constant = selected.frame.origin.x
+        width_bottomLineView.constant = selected.frame.size.width
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -91,19 +148,72 @@ class AgentHomeViewController: HippoHomeViewController {
     }
 
     @IBAction func myChatButtonClicked(_ sender: UIButton) {
-        guard conversationType != .myChat else {
+        selectTab(.myChat)
+    }
+    
+    @IBAction func p2pChatButtonClicked(_ sender: Any) {
+        selectTab(.p2pChat)
+    }
+    
+    @IBAction func supportChatButtonClicked(_ sender: Any) {
+        selectTab(.supportChat)
+    }
+    
+    /// Single entry point for switching tabs — keeps title styling, the underline,
+    /// the filter button and the lazy fetch in one place instead of one copy per tab.
+    func selectTab(_ tab: ConversationType) {
+        guard conversationType != tab else {
             return
         }
         reloadrefreshData(refreshCtrler: UIRefreshControl())
-        
-        self.myChatButton.titleLabel?.font = UIFont.bold(ofSize: 15)
-        self.allChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
-        self.o2oChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
-        view_NavigationBar.rightButton.isHidden = false
-        conversationType = .myChat
+        conversationType = tab
+        updateTabTitleStyles()
+        updateFilterButtonVisibility()
         animateBottomLineView()
+        fetchInitialDataIfRequired(for: tab)
         setData()
         tableView.reloadData()
+    }
+    
+    private func updateTabTitleStyles() {
+        for tab in visibleTabs {
+            button(for: tab)?.titleLabel?.font = tab == conversationType ? UIFont.bold(ofSize: 15) : UIFont.regular(ofSize: 15)
+        }
+    }
+    
+    private func updateFilterButtonVisibility() {
+        // Every tab has a filter; support chats use their own filter screen.
+        view_NavigationBar.rightButton.isHidden = false
+    }
+    
+    /// P2P and Support are not prefetched by getAllData(), so pull their first
+    /// page the first time the agent opens that tab.
+    private func fetchInitialDataIfRequired(for tab: ConversationType) {
+        guard !fetchedTabs.contains(tab) else {
+            return
+        }
+        switch tab {
+        case .p2pChat:
+            fetchedTabs.insert(tab)
+            AgentConversationManager.getP2PChats { [weak self] in
+                DispatchQueue.main.async {
+                    guard self?.conversationType == .p2pChat else { return }
+                    self?.setData()
+                    self?.tableView.reloadData()
+                }
+            }
+        case .supportChat:
+            fetchedTabs.insert(tab)
+            AgentConversationManager.getSupportChats { [weak self] in
+                DispatchQueue.main.async {
+                    guard self?.conversationType == .supportChat else { return }
+                    self?.setData()
+                    self?.tableView.reloadData()
+                }
+            }
+        case .myChat, .allChat, .historyChat:
+            break
+        }
     }
     
     @IBAction func broadcastButtonClicked(_ sender: UIButton) {
@@ -114,54 +224,57 @@ class AgentHomeViewController: HippoHomeViewController {
         
     }
     @IBAction func allChatButtonClicked(_ sender: Any) {
-        guard conversationType != .allChat else {
-            return
-        }
-
-        reloadrefreshData(refreshCtrler: UIRefreshControl())
-        self.myChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
-        self.allChatButton.titleLabel?.font = UIFont.bold(ofSize: 15)
-        self.o2oChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
-        view_NavigationBar.rightButton.isHidden = false
-
-        conversationType = .allChat
-        animateBottomLineView()
-        setData()
-        tableView.reloadData()
-    }
-    
-    @IBAction func o2oChatButtonClicked(_ sender: Any){
-        guard conversationType != .o2oChat else {
-            return
-        }
-        reloadrefreshData(refreshCtrler: UIRefreshControl())
-        self.myChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
-        self.allChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
-        self.o2oChatButton.titleLabel?.font = UIFont.bold(ofSize: 15)
-        view_NavigationBar.rightButton.isHidden = true
-        conversationType = .o2oChat
-        animateBottomLineView()
-        setData()
-        tableView.reloadData()
+        selectTab(.allChat)
     }
     
     
     @IBAction func filterBtnAction(_ sender: Any) {
-        //        let navVC = FilterViewController.getFilterStoryboardRoot()
-        //        self.present(navVC, animated: true, completion: nil)
-                if let vc = FilterViewController.getNewInstance(){
-                    vc.filterScreenButtonsDelegate = self
-                    vc.currentSelectedConvoType = self.conversationType
-                    vc.homeController = self
-                    let navVC = UINavigationController(rootViewController: vc)
-        //        navVC.setupCustomThemeOnNavigationController(hideNavigationBar: false)
-        //            navVC.modalPresentationStyle = .overFullScreen
-                    self.present(navVC, animated: true, completion: nil)
+//        let navVC = FilterViewController.getFilterStoryboardRoot()
+//        self.present(navVC, animated: true, completion: nil)
+        
+        // Support chats have their own filter model (HippoConfig.supportChatFilter),
+        // so they get their own filter screen rather than FilterViewController.
+        if conversationType == .supportChat {
+            presentSupportChatFilter()
+            return
+        }
+        
+        if let vc = FilterViewController.getNewInstance(){
+            vc.filterScreenButtonsDelegate = self
+            vc.currentSelectedConvoType = self.conversationType
+            vc.homeController = self
+            let navVC = UINavigationController(rootViewController: vc)
+//        navVC.setupCustomThemeOnNavigationController(hideNavigationBar: false)
+//            navVC.modalPresentationStyle = .overFullScreen
+            self.present(navVC, animated: true, completion: nil)
+        }
+    }
+    
+    private func presentSupportChatFilter() {
+        guard let vc = SupportChatFilterViewController.getNewInstance() else {
+            return
+        }
+        vc.filterApplied = { [weak self] in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                ConversationStore.shared.supportChats.removeAll()
+                AgentConversationManager.getSupportChats {
+                    DispatchQueue.main.async {
+                        guard self.conversationType == .supportChat else { return }
+                        self.setData()
+                        self.tableView.reloadData()
+                    }
                 }
+                self.setFilterButtonIcon()
+            }
+        }
+        let navVC = UINavigationController(rootViewController: vc)
+        self.present(navVC, animated: true, completion: nil)
     }
 
     deinit {
-        print("Deinit AgentHome.....")
+        NotificationCenter.default.removeObserver(self)
+        HippoConfig.shared.log.debug("-------\nERROR\nDeinit AgentHome\n--------", level: .info)
     }
     
     //Class methods
@@ -206,26 +319,19 @@ extension AgentHomeViewController {
     func agentStatusChanged() {
 //        AgentConversationManager.agentStatusUpdate(newStatus: self.agentStatus.isOn ? AgentStatus.available : AgentStatus.away) {[weak self] (success) in
     AgentConversationManager.agentStatusUpdate(newStatus: view_NavigationBar.rightSwitchButton.isOn ? AgentStatus.available : AgentStatus.away) {[weak self] (success) in
-            guard success, let strongSelf = self else {
+            guard success, let _ = self else {
                 return
             }
-            AgentConversationManager.getAgentsList(showLoader: false) {[weak self] (_) in                
+        AgentConversationManager.getAgentsList(showLoader: false) { _ in
             }
         }
     }
     
     func setData() {
-        switch conversationType {
-        case .allChat:
-            conversationList = ConversationStore.shared.allChats
-        case .myChat:
-            conversationList = ConversationStore.shared.myChats
-        case .o2oChat:
-            conversationList = ConversationStore.shared.o2oChats
-            break
-        case .historyChat:
+        guard conversationType != .historyChat else {
             return
         }
+        conversationList = ConversationStore.shared.conversations(for: conversationType)
 //        setAgentStatus()
         
         updatePaginationData()
@@ -245,34 +351,62 @@ extension AgentHomeViewController {
         guard let agent = HippoConfig.shared.agentDetail, agent.id > 0 else {
             return
         }
-        var numberOfBtns = 0
-        if agent.agentUserType != .admin && (BussinessProperty.current.hideAllChat ?? false) && (BussinessProperty.current.hideo2oChat ?? false){
-            self.buttonContainerViewHeightConstraint.constant = 0
-            self.myChatButton.isHidden = true
-            self.allChatButton.isHidden = true
-            self.o2oChatButton.isHidden = true
-            self.bottomLineView.isHidden = true
-        }else if agent.agentUserType != .admin && (BussinessProperty.current.hideAllChat ?? false){
-            self.myChatButton.isHidden = false
-            self.o2oChatButton.isHidden = false
-            self.bottomLineView.isHidden = false
-            self.allChatButton.isHidden = true
-            numberOfBtns = 2
-        } else if (BussinessProperty.current.hideo2oChat ?? false){
-            self.myChatButton.isHidden = false
-            self.o2oChatButton.isHidden = true
-            self.bottomLineView.isHidden = false
-            self.allChatButton.isHidden = false
-            numberOfBtns = 2
-        }else{
-            self.buttonContainerViewHeightConstraint.constant = 50
-            self.myChatButton.isHidden = false
-            self.allChatButton.isHidden = false
-            self.o2oChatButton.isHidden = false
-            self.bottomLineView.isHidden = false
-            numberOfBtns = 3
+        
+        // Which tabs the agent is allowed to see. All Chats is the only one the
+        // backend can currently switch off (hide_all_chat_tab, admins excepted).
+        let hideAllChat = agent.agentUserType != .admin && (BussinessProperty.current.hideAllChat ?? false)
+        visibleTabs = [.myChat, .allChat, .p2pChat, .supportChat].filter { tab in
+            tab != .allChat || !hideAllChat
         }
-        width_bottomLineView.constant = numberOfBtns > 0 ? self.view.frame.size.width/CGFloat(numberOfBtns) : 0
+        
+        for tab in [ConversationType.myChat, .allChat, .p2pChat, .supportChat] {
+            guard let button = self.button(for: tab) else { continue }
+            let isVisible = visibleTabs.contains(tab)
+            button.isHidden = !isVisible
+            button.setTitle(title(for: tab), for: .normal)
+            button.contentEdgeInsets = UIEdgeInsets(top: 0, left: tabHorizontalPadding, bottom: 0, right: tabHorizontalPadding)
+        }
+        
+        let hasTabs = !visibleTabs.isEmpty
+        buttonContainerViewHeightConstraint.constant = hasTabs ? 50 : 0
+        bottomLineView.isHidden = !hasTabs
+        
+        // If the selected tab got hidden, fall back to the first visible one.
+        if hasTabs, !visibleTabs.contains(conversationType) {
+            conversationType = visibleTabs[0]
+            setData()
+            tableView.reloadData()
+        }
+        
+        updateTabTitleStyles()
+        layoutTabBar()
+    }
+    
+    private var tabHorizontalPadding: CGFloat { return 16 }
+    
+    /// Tabs size to their titles and scroll horizontally when they overflow. When
+    /// they all fit, spread them across the full width so they don't bunch left.
+    private func layoutTabBar() {
+        guard !visibleTabs.isEmpty else {
+            width_bottomLineView.constant = 0
+            return
+        }
+        
+        tabStackView.layoutIfNeeded()
+        let intrinsicWidth = visibleTabs.reduce(CGFloat(0)) { total, tab in
+            guard let button = self.button(for: tab) else { return total }
+            let titleWidth = button.titleLabel?.intrinsicContentSize.width ?? 0
+            return total + titleWidth + (tabHorizontalPadding * 2)
+        }
+        
+        let fitsOnScreen = intrinsicWidth <= view.frame.size.width
+        tabStackView.distribution = fitsOnScreen ? .fillEqually : .fill
+        tabScrollView.isScrollEnabled = !fitsOnScreen
+        tabScrollView.showsHorizontalScrollIndicator = false
+        
+        // The underline is positioned from real button frames once autolayout has
+        // run — see viewDidLayoutSubviews().
+        view.setNeedsLayout()
     }
     
     func checkForAnyError() {
@@ -288,7 +422,7 @@ extension AgentHomeViewController {
             enableButton = true
         }
         
-        if let error = AgentConversationManager.errorMessage {
+        if let _ = AgentConversationManager.errorMessage {
             //message = error
             enableButton = true
         }
@@ -307,19 +441,26 @@ extension AgentHomeViewController {
     }
     
 
-    func animateBottomLineView() {
-        var leading : CGFloat =  0.0
-        if conversationType == .myChat {
-            leading = 0
-        }else if conversationType == .allChat{
-            leading = myChatButton.bounds.width
-        }else{
-            leading = allChatButton.isHidden ? myChatButton.bounds.width : myChatButton.bounds.width * 2
+    func animateBottomLineView(animated: Bool = true) {
+        guard let selected = button(for: conversationType), !selected.isHidden else {
+            return
         }
         
-        bottomViewLeadingConstraint.constant = leading
-        UIView.animate(withDuration: 0.4) {
-            self.buttonContainerView.layoutIfNeeded()
+        // Underline tracks the selected button's real frame, so tabs are free to
+        // differ in width.
+        bottomViewLeadingConstraint.constant = selected.frame.origin.x
+        width_bottomLineView.constant = selected.frame.size.width
+        
+        let updates = { self.buttonContainerView.layoutIfNeeded() }
+        if animated {
+            UIView.animate(withDuration: 0.4, animations: updates)
+        } else {
+            updates()
+        }
+        
+        // Pull a partially-visible tab into view.
+        if tabScrollView.isScrollEnabled {
+            tabScrollView.scrollRectToVisible(selected.frame, animated: animated)
         }
     }
         
@@ -469,7 +610,7 @@ extension AgentHomeViewController {
             refreshControl.addTarget(self, action: #selector(reloadrefreshData(refreshCtrler:)), for: .valueChanged)
         }
         @objc func reloadrefreshData(refreshCtrler: UIRefreshControl) {
-            if (AgentConversationManager.isAllChatInProgress && conversationType == .allChat) ||  (AgentConversationManager.isMyChatInProgress && conversationType == .myChat) || (AgentConversationManager.isMyChatInProgress && conversationType == .o2oChat){
+            if (AgentConversationManager.isAllChatInProgress && conversationType == .allChat) ||  (AgentConversationManager.isMyChatInProgress && conversationType == .myChat) || (AgentConversationManager.isp2pChatInProgress && conversationType == .p2pChat) || (AgentConversationManager.isSupportChatInProgress && conversationType == .supportChat){
                 refreshControl.endRefreshing()
                 return
             }
@@ -591,16 +732,10 @@ extension AgentHomeViewController {
 
 extension AgentHomeViewController: UIScrollViewDelegate {
     func updatePaginationData() {
-        switch self.conversationType {
-        case .allChat:
-            self.isMoreToLoad = ConversationStore.shared.isMoreAllChatToLoad
-        case .myChat:
-            self.isMoreToLoad = ConversationStore.shared.isMoreMyChatToLoad
-        case .o2oChat:
-            self.isMoreToLoad = ConversationStore.shared.isMoreo2oChatToLoad
-        case .historyChat:
-            print("History chat")
+        guard self.conversationType != .historyChat else {
+            return
         }
+        self.isMoreToLoad = ConversationStore.shared.isMoreToLoad(for: self.conversationType)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -625,7 +760,6 @@ extension AgentHomeViewController: UIScrollViewDelegate {
         allowPagination = false
         isMoreToLoad = false
         startLoadingMore()
-        print(">>>>>>>>>\(currentBottom)")
         callApi()
     }
     
@@ -675,7 +809,6 @@ extension AgentHomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UIView.tableAutoDimensionHeight
     }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (conversationList[indexPath.row].unreadCount ?? 0) > 0{
             removeChannelForUnreadCount(conversationList[indexPath.row].channel_id ?? -1)
@@ -704,27 +837,17 @@ extension AgentHomeViewController: UITableViewDelegate, UITableViewDataSource {
         
     }
 
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-//        var deleteAction = UITableViewRowAction(style: .default, title: "End chat") { (action, indexpath) in
-//            self.updateChannelStatus(for: indexPath.row)
-//        }
-//        return [deleteAction]
-        
-        if let status = conversationList[indexPath.row].status {
-            if status == 1{
-                let deleteAction = UITableViewRowAction(style: .default, title: HippoStrings.closeChat) { (action, indexpath) in
-                    self.showOptionAlert(title: "", message: HippoStrings.closeChatPopup, preferredStyle: .alert, successButtonName: HippoStrings.yes, successComplete: { (_) in
-                        self.updateChannelStatus(for: indexPath.row)
-                    }, failureButtonName: HippoStrings.no.capitalized, failureComplete: nil)
-                }
-                return [deleteAction]
-            }else if status == 2{
-
-                return nil
-            }
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard let status = conversationList[indexPath.row].status, status == 1 else {
             return nil
         }
-        return nil
+        let closeAction = UIContextualAction(style: .destructive, title: HippoStrings.closeChat) { [weak self] _, _, done in
+            self?.showOptionAlert(title: "", message: HippoStrings.closeChatPopup, preferredStyle: .alert, successButtonName: HippoStrings.yes, successComplete: { _ in
+                self?.updateChannelStatus(for: indexPath.row)
+            }, failureButtonName: HippoStrings.no.capitalized, failureComplete: nil)
+            done(true)
+        }
+        return UISwipeActionsConfiguration(actions: [closeAction])
     }
 
     func updateChannelStatus(for row: Int) {
@@ -742,7 +865,7 @@ extension AgentHomeViewController: UITableViewDelegate, UITableViewDataSource {
                     return
                 }
                 for each in controllers {
-                    if let vc = each as? HippoHomeViewController {
+                    if let _ = each as? HippoHomeViewController {
 //                        vc.channelStatusChanged(channelId: channelId, newStatus: ChatStatus(rawValue: newStatus) ?? ChatStatus.open)
                         self.stopLoading()
                         self.deleteConversation(channelId: channelId)
@@ -795,7 +918,8 @@ extension AgentHomeViewController: AgentChatDeleagate {
         }
         let allChatIndex = AgentConversation.getIndex(in: ConversationStore.shared.allChats, for: channelId)
         let myChatIndex = AgentConversation.getIndex(in: ConversationStore.shared.myChats, for: channelId)
-        let o2oChatIndex = AgentConversation.getIndex(in: ConversationStore.shared.o2oChats, for: channelId)
+        let p2pChatIndex = AgentConversation.getIndex(in: ConversationStore.shared.p2pChats, for: channelId)
+        let supportChatIndex = AgentConversation.getIndex(in: ConversationStore.shared.supportChats, for: channelId)
         
         if allChatIndex != nil {
             let chatObj = ConversationStore.shared.allChats[allChatIndex!]
@@ -807,8 +931,13 @@ extension AgentHomeViewController: AgentChatDeleagate {
             chatObj.update(channelId: channelId, unreadCount: unreadCount, lastMessage: lastMessage)
         }
         
-        if let index = o2oChatIndex, index < ConversationStore.shared.o2oChats.count{
-            let chatObj = ConversationStore.shared.o2oChats[index]
+        if let index = p2pChatIndex, index < ConversationStore.shared.p2pChats.count{
+            let chatObj = ConversationStore.shared.p2pChats[index]
+            chatObj.update(channelId: channelId, unreadCount: unreadCount, lastMessage: lastMessage)
+        }
+        
+        if let index = supportChatIndex, index < ConversationStore.shared.supportChats.count{
+            let chatObj = ConversationStore.shared.supportChats[index]
             chatObj.update(channelId: channelId, unreadCount: unreadCount, lastMessage: lastMessage)
         }
         
@@ -928,15 +1057,20 @@ extension AgentHomeViewController: AgentUserChannelDelegate {
     
     func newConversationRecieved(_ newConversation: AgentConversation, channelID: Int) {
         if AgentConversation.isAssignmentNotification(for: newConversation) {
-            if newConversation.chatType == .o2o || newConversation.channel_type == channelType.SUPPORT_CHAT_CHANNEL.rawValue{
+            if newConversation.chatType == .p2p || newConversation.channel_type == channelType.SUPPORT_CHAT_CHANNEL.rawValue{
                 return
             }
             handleAssignmentNotification(with: newConversation, channelID: channelID)
             return
         }
         
-        if newConversation.chatType == .o2o{
-            handleo2oChatInsertion(newConversation: newConversation, channelID: channelID)
+        if newConversation.channel_type == channelType.SUPPORT_CHAT_CHANNEL.rawValue {
+            handleInsertion(of: newConversation, channelID: channelID, into: .supportChat)
+            return
+        }
+        
+        if newConversation.chatType == .p2p {
+            handleInsertion(of: newConversation, channelID: channelID, into: .p2pChat)
             return
         }
         
@@ -1000,29 +1134,40 @@ extension AgentHomeViewController: AgentUserChannelDelegate {
         
     }
 
-    func handleo2oChatInsertion(newConversation: AgentConversation, channelID: Int){
-        let o2oChatIndex = AgentConversation.getIndex(in: ConversationStore.shared.o2oChats, for: channelID)
-        if let index = o2oChatIndex, index < ConversationStore.shared.o2oChats.count{
-            let conversation = ConversationStore.shared.o2oChats[index]
+    /// Moves an incoming conversation to the top of the store backing `tab`,
+    /// inserting it if it isn't there yet.
+    func handleInsertion(of newConversation: AgentConversation, channelID: Int, into tab: ConversationType) {
+        let store = ConversationStore.shared
+        var chats = store.conversations(for: tab)
+        
+        if let index = AgentConversation.getIndex(in: chats, for: channelID), index < chats.count {
+            let conversation = chats[index]
             conversation.update(newConversation: newConversation)
             
-            if index != 0 {
-                ConversationStore.shared.o2oChats.remove(at: index)
-                ConversationStore.shared.o2oChats.insert(conversation, at: 0)
-                
-                if conversationType == .o2oChat {
-                    setData()
-                    self.tableView.reloadData()
+            guard index != 0 else {
+                if conversation.messageUpdated == nil {
+                    tableView.reloadData()
                 }
-            } else if conversation.messageUpdated == nil {
-                tableView.reloadData()
+                return
             }
+            chats.remove(at: index)
+            chats.insert(conversation, at: 0)
         } else {
-            ConversationStore.shared.o2oChats.insert(newConversation, at: 0)
-            if conversationType == .o2oChat {
-                setData()
-                tableView.reloadData()
-            }
+            chats.insert(newConversation, at: 0)
+        }
+        
+        switch tab {
+        case .p2pChat:
+            store.p2pChats = chats
+        case .supportChat:
+            store.supportChats = chats
+        case .myChat, .allChat, .historyChat:
+            return
+        }
+        
+        if conversationType == tab {
+            setData()
+            tableView.reloadData()
         }
     }
     
@@ -1041,5 +1186,31 @@ extension AgentHomeViewController : FilterScreenButtonsDelegate{
     func applyButtonPressed() {
         startLoading()
         self.setDataForViewDidAppear()
+    }
+}
+
+extension AgentHomeViewController{
+    // MARK: - Show alert if user didn't provide permission for notifications
+    fileprivate func openAlertForNotification() {
+        self.showOptionAlert(title: "Turn on notifications", message: "This way you will be notified when anyone send you message or call instantly.\nPlease allow permission from settings app.", successButtonName: "Setings", successComplete: { action in
+            if let bundle = Bundle.main.bundleIdentifier,
+               let settings = URL(string: UIApplication.openSettingsURLString + bundle) {
+                if UIApplication.shared.canOpenURL(settings) {
+                    UIApplication.shared.open(settings)
+                }
+            }
+        }, failureButtonName: "Cancel") { action in }
+    }
+    
+    func openAlertIfNotificationsNotAllowed(){
+        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+            if settings.authorizationStatus != .authorized && !HippoUserDetail.NotificationNotAllowedAlert{
+                // Notifications are not allowed
+                fuguDelay(0.0) {
+                    self.openAlertForNotification()
+                    HippoUserDetail.NotificationNotAllowedAlert = true
+                }
+            }
+        }
     }
 }

@@ -16,7 +16,9 @@ let calling_Type = "callingType"
 let full_name = "fullName"
 let Fugu_AppSecret_Key = "fugu_app_secret_key"
 let Fugu_en_user_id = "fuguEnUserId"
+let NotificationDisabledAlert = "NotificationDisabledAlert"
 let Hippo_User_Channel_Id = "userChannelId"
+let Hippo_Device_Key = "hippo_device_key"
 let Fugu_groupCallData = "groupCallData"
 let Fugu_User_Data = "fuguUserData"
 let phoneNumberRegex = "1?W*([2-9][0-9][0-9])W*([2-9][0-9]{2})W*([0-9]{4})(se?x?t?(d*))?"
@@ -123,23 +125,16 @@ var isModuleRunning: Bool {
     return bundleIdentifier != "com.socomo.Fugu"
 }
 var material:[String] = [
-    "e57373",
-    "f06292",
-    "ba68c8",
-    "9575cd",
-    "7986cb",
-    "64b5f6",
-    "4fc3f7",
-    "4dd0e1",
-    "4db6ac",
-    "81c784",
-    "aed581",
-    "ff8a65",
-    "d4e157",
-    "ffd54f",
-    "ffb74d",
-    "a1887f",
-    "90a4ae"
+       "B8E9F3",
+       "D8C8FF",
+       "C9E7CF",
+       "FFD4B3",
+       "FFCDDC",
+       "FFEBA3",
+       "C4EEEA",
+       "DCC6F3",
+       "C5E2FF",
+       "CFF2DA"
 ]
 
 func getColor(char: String) -> Int {
@@ -148,15 +143,16 @@ func getColor(char: String) -> Int {
     return index
 }
 
-
 func convertDateTimeToUTC(date: Date? = nil) -> String {
     let formatterUTC = DateFormatter()
+    // Fixed locale: on a 12-hour device the user's setting otherwise rewrites "HH" and the
+    // server got "T7:19:48" instead of "T07:19:48".
+    formatterUTC.locale = Locale(identifier: "en_US_POSIX")
     formatterUTC.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
     formatterUTC.timeZone = TimeZone(secondsFromGMT: 0)
     
     return formatterUTC.string(from: date ?? Date())
 }
-
 
 func attributedStringForLabel(_ firstString: String, secondString: String, thirdString: String, colorOfFirstString: UIColor, colorOfSecondString: UIColor, colorOfThirdString: UIColor, fontOfFirstString: UIFont?, fontOfSecondString: UIFont?, fontOfThirdString: UIFont, textAlighnment: NSTextAlignment, dateAlignment: NSTextAlignment) -> NSMutableAttributedString {
     
@@ -174,7 +170,7 @@ func attributedStringForLabel(_ firstString: String, secondString: String, third
     
     let attributedTitle = NSMutableAttributedString(string: combinedString as String)
     
-    #if swift(>=4.0)
+#if swift(>=4.0)
     
     attributedTitle.addAttribute(NSAttributedString.Key.foregroundColor, value: colorOfFirstString, range: rangeOfFirstString)
     if let sendeNameFont = fontOfFirstString {
@@ -196,7 +192,7 @@ func attributedStringForLabel(_ firstString: String, secondString: String, third
     attributedTitle.addAttribute(NSAttributedString.Key.font, value: fontOfThirdString, range: rangeOfThirdString)
     attributedTitle.addAttribute(NSAttributedString.Key.paragraphStyle, value: thirdStringStyle, range: rangeOfThirdString)
     
-    #else
+#else
     attributedTitle.addAttribute(NSForegroundColorAttributeName, value: colorOfFirstString, range: rangeOfFirstString)
     if let sendeNameFont = fontOfFirstString {
         attributedTitle.addAttribute(NSFontAttributeName, value: sendeNameFont, range: rangeOfFirstString)
@@ -217,7 +213,7 @@ func attributedStringForLabel(_ firstString: String, secondString: String, third
     attributedTitle.addAttribute(NSFontAttributeName, value: fontOfThirdString, range: rangeOfThirdString)
     attributedTitle.addAttribute(NSParagraphStyleAttributeName, value: thirdStringStyle, range: rangeOfThirdString)
     
-    #endif
+#endif
     return attributedTitle
 }
 
@@ -236,7 +232,7 @@ func attributedStringForLabelForTwoStrings(_ firstString: String, secondString: 
     let attributedTitle = NSMutableAttributedString(string: combinedString as String)
     
     
-    #if swift(>=4.0)
+#if swift(>=4.0)
     
     attributedTitle.addAttribute(NSAttributedString.Key.foregroundColor, value: colorOfFirstString, range: rangeOfFirstString)
     attributedTitle.addAttribute(NSAttributedString.Key.font, value: fontOfFirstString, range: rangeOfFirstString)
@@ -246,7 +242,7 @@ func attributedStringForLabelForTwoStrings(_ firstString: String, secondString: 
     attributedTitle.addAttribute(NSAttributedString.Key.font, value: fontOfSecondString, range: rangeOfSecondString)
     attributedTitle.addAttribute(NSAttributedString.Key.paragraphStyle, value: firstStringStyle, range: rangeOfSecondString)
     
-    #else
+#else
     attributedTitle.addAttribute(NSForegroundColorAttributeName, value: colorOfFirstString, range: rangeOfFirstString)
     attributedTitle.addAttribute(NSFontAttributeName, value: fontOfFirstString, range: rangeOfFirstString)
     attributedTitle.addAttribute(NSParagraphStyleAttributeName, value: firstStringStyle, range: rangeOfFirstString)
@@ -255,7 +251,7 @@ func attributedStringForLabelForTwoStrings(_ firstString: String, secondString: 
     attributedTitle.addAttribute(NSFontAttributeName, value: fontOfSecondString, range: rangeOfSecondString)
     attributedTitle.addAttribute(NSParagraphStyleAttributeName, value: firstStringStyle, range: rangeOfSecondString)
     
-    #endif
+#endif
     return attributedTitle
 }
 
@@ -306,9 +302,15 @@ func subscribeCustomerUserChannel(userChannelId: String) {
     SocketClient.shared.subscribeSocketChannel(channel: userChannelId)
     HippoConfig.shared.userDetail?.listener?.startListening(event: SocketEvent.SERVER_PUSH.rawValue, callback: { (data) in
         if let messageDict = data as? [String : Any]{
-           
             if (messageDict["channel"] as? String)?.replacingOccurrences(of: "/", with: "") != userChannelId{
                 return
+            }
+            
+            if let muid = messageDict["muid"] as? String {
+                if HippoConfig.shared.processedMessageMUIDs.contains(muid) == true {
+                    return
+                }
+                HippoConfig.shared.processedMessageMUIDs.insert(muid)
             }
             
             HippoConfig.shared.log.trace("UserChannel:: --->\(messageDict)", level: .socket)
@@ -327,11 +329,30 @@ func subscribeCustomerUserChannel(userChannelId: String) {
             }
             
             if let notificationType = messageDict["notification_type"] as? Int{
+                if HippoConfig.shared.appUserType == .customer{
+                    incrementUnreadCountByOne()
+                }
                 if notificationType == NotificationType.message.rawValue && messageDict["channel_id"] as? Int != HippoConfig.shared.getCurrentChannelId(){
                     if let channelId = messageDict["channel_id"] as? Int, let otherUserUniqueKey = ((messageDict["user_unique_keys"] as? [String])?.filter{$0 != HippoConfig.shared.userDetail?.userUniqueKey}.first){
-                        let transactionId = P2PUnreadData.shared.getTransactionId(with: channelId)
+                        var transactionId = P2PUnreadData.shared.getTransactionId(with: channelId)
+                        if transactionId.isEmpty {
+                            // First message of a new chat: the saved entry still has channelId -1/-2,
+                            // so the lookup by channel id finds nothing.
+                            if let fromMessage = messageDict["chat_transaction_id"] as? String, !fromMessage.isEmpty {
+                                transactionId = fromMessage
+                            } else {
+                                let pending = P2PUnreadData.shared.pendingTransactionIds(otherUserUniqueKey: otherUserUniqueKey)
+                                if pending.count == 1 {
+                                    transactionId = pending[0]
+                                } else if pending.count > 1 {
+                                    // Several jobs with this person are waiting for a first message and we
+                                    // can't tell which one this is: ask the server for each instead of guessing.
+                                    P2PUnreadData.shared.refreshFromServer(transactionIds: pending, otherUserUniqueKey: otherUserUniqueKey)
+                                }
+                            }
+                        }
                         if let data = P2PUnreadData.shared.getData(with: transactionId) , data.id == (transactionId + "-" + otherUserUniqueKey) {
-                            let unreadCount = (data.count ?? 0) + 1
+                            let unreadCount = (data.channelId ?? -1) > 0 ? (data.count ?? 0) + 1 : 1
                             P2PUnreadData.shared.updateChannelId(transactionId: transactionId, channelId: channelId, count: unreadCount,muid: messageDict["muid"] as? String ,otherUserUniqueKey: otherUserUniqueKey)
                         }
                     }
@@ -353,48 +374,50 @@ func subscribeMarkConversation(){
         return
     }
     
-//    SocketClient.shared.subscribedChannel(channelId: markConversationChannel, completion: { (success) in
-//    }) {  (messageDict) in
-//        print(messageDict)
-//        if let notificationType = messageDict["notification_type"] as? Int, notificationType == 12{
-//            if let status = messageDict["status"] as? String{
-//                if status != "2"{
-//                    return
-//                }
-//            }else if let status = messageDict["status"] as? Int{
-//                if status != 2{
-//                    return
-//                }
-//            }
-//            for controller in getLastVisibleController()?.navigationController?.viewControllers ?? [UIViewController](){
-//                if controller is AllConversationsViewController{
-//                    (controller as? AllConversationsViewController)?.closeChat(messageDict["channel_id"] as? Int ?? -1)
-//                    return
-//                }
-//            }
-//
-//            if currentUserType() == .agent{
-//                if let channelId = messageDict["channel_id"] as? Int{
-//                   removeChannelForUnreadCount(channelId)
-//                }
-//            }
-//        }
-//    }
+    //    SocketClient.shared.subscribedChannel(channelId: markConversationChannel, completion: { (success) in
+    //    }) {  (messageDict) in
+    //        print(messageDict)
+    //        if let notificationType = messageDict["notification_type"] as? Int, notificationType == 12{
+    //            if let status = messageDict["status"] as? String{
+    //                if status != "2"{
+    //                    return
+    //                }
+    //            }else if let status = messageDict["status"] as? Int{
+    //                if status != 2{
+    //                    return
+    //                }
+    //            }
+    //            for controller in getLastVisibleController()?.navigationController?.viewControllers ?? [UIViewController](){
+    //                if controller is AllConversationsViewController{
+    //                    (controller as? AllConversationsViewController)?.closeChat(messageDict["channel_id"] as? Int ?? -1)
+    //                    return
+    //                }
+    //            }
+    //
+    //            if currentUserType() == .agent{
+    //                if let channelId = messageDict["channel_id"] as? Int{
+    //                   removeChannelForUnreadCount(channelId)
+    //                }
+    //            }
+    //        }
+    //    }
     
 }
 
-func getAnnouncementCountNew() -> Int {
-   return UserDefaults.standard.integer(forKey: "announcement_unread_count")
+ func getAnnouncementCountNew() -> Int {
+    return UserDefaults.standard.integer(forKey: "announcement_unread_count")
 }
 
-func setAnnouncementCount(_ count: Int) {
-   UserDefaults.standard.set(count, forKey: "announcement_unread_count")
+ func setAnnouncementCount(_ count: Int) {
+    UserDefaults.standard.set(count, forKey: "announcement_unread_count")
 }
+
+
 
 
 func removeChannelForUnreadCount(_ channelId : Int){
     if var channelList = FuguDefaults.object(forKey: DefaultName.agentTotalUnreadHashMap.rawValue) as? [String : Any], let totalUnreadCount = UserDefaults.standard.value(forKey: DefaultName.agentUnreadCount.rawValue) as? Int{
-       //find if the channel exists in list
+        //find if the channel exists in list
         if let channelUnreadCount = channelList["\(channelId)"] as? Int{
             let newUnreadCount = totalUnreadCount - channelUnreadCount
             HippoConfig.shared.sendAgentUnreadCount(newUnreadCount)
@@ -406,15 +429,13 @@ func removeChannelForUnreadCount(_ channelId : Int){
     }
 }
 
-
-
 func calculateTotalAgentUnreadCount(_ channelId : Int, _ unreadCount : Int){
     if var channelList = FuguDefaults.object(forKey: DefaultName.agentTotalUnreadHashMap.rawValue) as? [String : Any], var totalUnreadCount = UserDefaults.standard.value(forKey: DefaultName.agentUnreadCount.rawValue) as? Int{
-       //find if the channel exists in list
+        //find if the channel exists in list
         if let channelUnreadCount = channelList["\(channelId)"] as? Int{
             let newUnreadCount = channelUnreadCount + 1
             channelList["\(channelId)"] = newUnreadCount
-           // set value in hash
+            // set value in hash
             FuguDefaults.set(value: channelList, forKey: DefaultName.agentTotalUnreadHashMap.rawValue)
             //set total unread
             totalUnreadCount = totalUnreadCount + 1
@@ -436,6 +457,11 @@ func calculateTotalAgentUnreadCount(_ channelId : Int, _ unreadCount : Int){
     }
 }
 
+func incrementUnreadCountByOne() {
+    HippoConfig.shared.localUnreadCount += 1
+    HippoConfig.shared.sendUnreadCount(HippoConfig.shared.localUnreadCount)
+}
+
 func pushTotalUnreadCount() {
     var chatCounter = 0
     var noDataFound = false
@@ -448,45 +474,21 @@ func pushTotalUnreadCount() {
                 chatCounter += unreadCount
             }
         }
+        chatCounter += getPushUnreadCount()
+        HippoConfig.shared.sendUnreadCount(chatCounter)
     case .customer:
         if let chatCachedArray = FuguDefaults.object(forKey: DefaultName.conversationData.rawValue) as? [[String: Any]] {
-            for conversationInfo in chatCachedArray {
-                if let conversationCounter = conversationInfo["unread_count"] as? Int {
-                    chatCounter += conversationCounter
-                }
+            let totalUnreadCount = chatCachedArray.reduce(0) { partialResult, conversation in
+                partialResult + (conversation["unread_count"] as? Int ?? 0)
             }
-        }else{
+            HippoConfig.shared.localUnreadCount = totalUnreadCount
+            HippoConfig.shared.sendUnreadCount(totalUnreadCount)
+        } else {
             noDataFound = true
+            HippoConfig.shared.localUnreadCount = 0
+            HippoConfig.shared.sendUnreadCount(0)
         }
     }
-    
-    if noDataFound{
-        let allConversationObj = AllConversationsViewController()
-        allConversationObj.getAllConversations()
-        return
-    }
-    
-    chatCounter += getPushUnreadCount()
-    HippoConfig.shared.sendUnreadCount(chatCounter)
-    
-//    if let allConversationVC = getLastVisibleController() as? AllConversationsViewController{
-//        let totalNotifyCount = chatCounter
-//        if totalNotifyCount > 0{
-//            if let tabItems = allConversationVC.tabBarController?.tabBar.items {
-//                // In this case we want to modify the badge number of the third tab:
-//                let tabItem = tabItems[0]
-//                tabItem.badgeValue = "\(totalNotifyCount)"
-//                //tabItem.badgeValue = nil
-//                //UserDefaults.standard.set(totalNotifyCount, forKey: "totalNotify")
-//            }
-//        }else{
-//            if let tabItems = allConversationVC.tabBarController?.tabBar.items {
-//                // In this case we want to modify the badge number of the third tab:
-//                let tabItem = tabItems[0]
-//                tabItem.badgeValue = nil
-//            }
-//        }
-//    }
     
 }
 
@@ -744,6 +746,7 @@ func updatePushCount(pushInfo: [String: Any]) {
     HippoConfig.shared.pushArray[index!].count += 1
     HippoConfig.shared.pushArray[index!].muid = newObj.muid
 }
+
 func resetForChannel(pushInfo: [String: Any]) {
     guard let channelId = pushInfo["channel_id"] as? Int else {
         return
@@ -778,7 +781,7 @@ func getLastVisibleController(ofParent parent: UIViewController? = nil) -> UIVie
             return vc
         }
     } else {
-        if let rootVC = UIApplication.shared.windows.first?.rootViewController {
+        if let rootVC = UIApplication.shared.currentKeyWindow?.rootViewController {
             return getLastVisibleController(ofParent: rootVC)
         } else {
             return nil
@@ -787,14 +790,8 @@ func getLastVisibleController(ofParent parent: UIViewController? = nil) -> UIVie
 }
 
 func parseDeviceToken(deviceToken: Data) -> String? {
-    let tokenData = NSData(data: deviceToken)
-    let trimEnds = tokenData.description.trimmingCharacters(in: CharacterSet(charactersIn: "<>"))
-    let pushToken: String = trimEnds.replacingOccurrences(of: " ", with: "")
-    
-    if pushToken.isEmpty || pushToken.contains("{")  {
-        return deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
-    }
-    return pushToken
+    let pushToken = deviceToken.map { String(format: "%02X", $0) }.joined()
+    return pushToken.isEmpty ? nil : pushToken
 }
 
 func updateDeviceToken(deviceToken: String) {

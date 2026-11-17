@@ -12,7 +12,7 @@ class Business {
     static let shared = Business()
     
     var agents: [Agent] = []
-//    var savedReplies: [CannedReply] = []
+    var savedReplies: [CannedReply] = []
     var tags: [TagDetail] = []
     var channels: [ChannelDetail] = []
 //
@@ -70,13 +70,13 @@ class Business {
             self.agents = agents
         }
         
-//        savedReplies = CacheManager.getStoredCannedReply()
+        savedReplies = CacheManager.getStoredCannedReply()
     }
     
     func clearData() {
         self.agents.removeAll()
 //        self.expiryInfo = nil
-//        self.savedReplies.removeAll()
+        self.savedReplies.removeAll()
 //        self.properties = BusinessProperty(loginData: [:])
 //
 //        self.tags.removeAll()

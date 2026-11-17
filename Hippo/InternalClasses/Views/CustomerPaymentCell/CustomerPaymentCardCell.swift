@@ -52,32 +52,39 @@ class CustomerPaymentCardCell: UITableViewCell {
     internal func setTheme() {
         backgroundColor = UIColor.clear
         selectionStyle = .none
-        
+
         let theme = HippoConfig.shared.theme
-        titleLabel.textColor = .black
+        let isCustomer = HippoConfig.shared.appUserType == .customer
+        let colorConfig = HippoConfig.shared.colorConfig
+
+        titleLabel.textColor = isCustomer ? colorConfig.hippoTextPrimary : .black
         titleLabel.font = UIFont.boldSystemFont(ofSize: 15.0)
         titleLabel.numberOfLines = 0
-        
-        descriptionLabel.textColor = theme.descriptionTextColor
+
+        descriptionLabel.textColor = isCustomer ? colorConfig.hippoTextMuted : theme.descriptionTextColor
         descriptionLabel.font = theme.descriptionFont
         descriptionLabel.numberOfLines = 0
-            
-        amountLabel.textColor = theme.descriptionTextColor
+
+        amountLabel.textColor = isCustomer ? colorConfig.hippoTextMuted : theme.descriptionTextColor
         amountLabel.font = theme.pricingFont
         amountLabel.numberOfLines = 0
-        
+
         label_PaidStatus.font = UIFont.boldSystemFont(ofSize: 15.0)
-        label_PaidStatus.textColor = .black
-        
-        innerCard.backgroundColor = UIColor.white
+        label_PaidStatus.textColor = isCustomer ? colorConfig.hippoTextPrimary : .black
+
         labelView.backgroundColor = UIColor.clear
         backgroundColor = UIColor.clear
 
-        bgView.layer.borderWidth = 0.2
-        bgView.layer.borderColor = UIColor.lightGray.cgColor
+        // Card fill reads the surface token (white by default) with a visible border — the
+        // panel behind it (PaymentMessageCell) now uses a distinct pale surfaceBackground, so
+        // this card actually shows up as a card instead of blending into it.
+        let cardFill = isCustomer ? colorConfig.hippoSurface : .white
+        innerCard.backgroundColor = cardFill
+        bgView.layer.borderWidth = isCustomer ? 1 : 0.2
+        bgView.layer.borderColor = (isCustomer ? colorConfig.hippoBorder : UIColor.lightGray).cgColor
         bgView.layer.cornerRadius = 6
         bgView.layer.masksToBounds = true
-        bgView.backgroundColor = UIColor.white
+        bgView.backgroundColor = cardFill
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

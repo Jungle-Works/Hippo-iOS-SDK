@@ -245,6 +245,8 @@ class CustomerPayment {
     var isPaid: Bool = false
     var isLocalySelected: Bool = false
     var transactionId: String?
+    /// The amount as the server wrote it ("100.00", "49,999") - `amount` loses the formatting.
+    var amountText: String?
     
     var displayAmount: NSAttributedString {
         let theme = HippoConfig.shared.theme
@@ -290,6 +292,7 @@ class CustomerPayment {
         self.title = String.parse(values: json, key: "title")
         self.description = String.parse(values: json, key: "payment_description") ?? String.parse(values: json, key: "description")
         self.amount = Double.parse(values: json, key: "amount")
+        self.amountText = String.parse(values: json, key: "amount")
         self.currency = String.parse(values: json, key: "currency")
         self.paymentUrlString = String.parse(values: json, key: "payment_url")
         self.discount = String.parse(values: json, key: "discount")

@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol HippoDataCollectorControllerDelegate: class {
+protocol HippoDataCollectorControllerDelegate: AnyObject {
     func userUpdated()
 }
 

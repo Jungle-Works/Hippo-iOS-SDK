@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol MessageSenderDelegate: class {
+protocol MessageSenderDelegate: AnyObject {
     func messageSent(message: HippoMessage)
     func messageExpired(message: HippoMessage)
     func duplicateMuidOf(message: HippoMessage)
@@ -115,7 +115,6 @@ class MessageSender {
                 self?.startSending()
                 HippoConfig.shared.log.debug("-->\(self?.channelID.description ?? "no channel id") == messageSent == \(messageJSON) ", level: .socket)
             } else {
-                print("FayeConnection.shared.send****:", result.error)
                 guard let errorType = result.error else {
                     self?.retryWithDelay()
                     return

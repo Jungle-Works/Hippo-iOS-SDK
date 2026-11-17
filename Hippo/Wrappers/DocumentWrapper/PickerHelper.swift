@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import Photos
+import AVFoundation
 
 protocol PickerHelperDelegate: CoreDocumentPickerDelegate, CoreMediaSelectorDelegate {
     func payOptionClicked()
     func shareVideoUrlClicked()
     func shareAudioUrlClicked()
+    func sendLocationClicked()
 }
 extension PickerHelperDelegate {
     func shareVideoUrlClicked(){}
@@ -38,7 +41,32 @@ class PickerHelper {
         currentViewController = viewController
     }
     
+    /// Asks for photo access first (when not yet decided) and opens the library as soon as
+    /// it's granted, so the user doesn't have to tap the option a second time.
     func performActionBasedOnGalleryPermission() {
+        PickerHelper.requestPhotoLibraryAccess { [weak self] granted in
+            guard let self = self else { return }
+            guard granted else {
+                PickerHelper.showAccessDeniedAlert(message: HippoStrings.photoLibraryAccessMessage, in: self.currentViewController)
+                return
+            }
+            self.openPhotoLibrary()
+        }
+    }
+
+    /// Same as the gallery flow, for the camera.
+    func performActionBasedOnCameraPermission() {
+        PickerHelper.requestCameraAccess { [weak self] granted in
+            guard let self = self else { return }
+            guard granted else {
+                PickerHelper.showAccessDeniedAlert(message: HippoStrings.cameraAccessMessage, in: self.currentViewController)
+                return
+            }
+            self.openCamera()
+        }
+    }
+
+    private func openPhotoLibrary() {
         guard let parsedDelegate = delegate else {
             assertionFailure("Please assign delegate to PickerHelper")
             return
@@ -47,8 +75,8 @@ class PickerHelper {
         imagePicker = CoreMediaSelector(delegate: parsedDelegate)
         imagePicker?.openPhotoLibraryFor(fileName: "Abc", fileTypes: [.image, .video], inViewController: currentViewController)
     }
-    
-    func performActionBasedOnCameraPermission() {
+
+    private func openCamera() {
         guard let parsedDelegate = delegate else {
             assertionFailure("Please assign delegate to PickerHelper")
             return
@@ -57,8 +85,51 @@ class PickerHelper {
         imagePicker = CoreMediaSelector(delegate: parsedDelegate)
         imagePicker?.openCameraFor(fileName: "name", fileTypes: [.image, .video], inViewController: self.currentViewController)
     }
+
+    // MARK: - Permissions
+
+    /// Calls back on the main queue. `.limited` counts as granted - the user picked
+    /// which photos to share, and the picker shows them.
+    private static func requestPhotoLibraryAccess(_ completion: @escaping (Bool) -> Void) {
+        switch PHPhotoLibrary.authorizationStatus(for: .readWrite) {
+        case .authorized, .limited:
+            completion(true)
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization(for: .readWrite) { status in
+                DispatchQueue.main.async { completion(status == .authorized || status == .limited) }
+            }
+        default:
+            completion(false)
+        }
+    }
+
+    /// Calls back on the main queue.
+    private static func requestCameraAccess(_ completion: @escaping (Bool) -> Void) {
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .authorized:
+            completion(true)
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: .video) { granted in
+                DispatchQueue.main.async { completion(granted) }
+            }
+        default:
+            completion(false)
+        }
+    }
+
+    /// "Enable X in Settings" alert with a shortcut to the app's Settings page.
+    static func showAccessDeniedAlert(message: String, in controller: UIViewController) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: HippoStrings.cancel, style: .cancel))
+        alert.addAction(UIAlertAction(title: HippoStrings.openSettings, style: .default) { _ in
+            if let url = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(url)
+            }
+        })
+        controller.present(alert, animated: true)
+    }
     
-    func present(sender: UIView, controller: UIViewController) {
+    func present(sender: UIView, controller: UIViewController, isCreateTicket:Bool = false) {
         
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         let paymentOption = UIAlertAction(title: HippoStrings.requestPayment, style: .default, handler: { (alert: UIAlertAction!) -> Void in
@@ -105,7 +176,7 @@ class PickerHelper {
         }
         actionSheet.addAction(photoLibraryAction)
         actionSheet.addAction(cameraAction)
-        if BussinessProperty.current.isCallInviteEnabled ?? false {
+        if BussinessProperty.current.isCallInviteEnabled ?? false && isCreateTicket == false {
             if !isBotInProgress{
                 actionSheet.addAction(shareVideoUrlOption)
                 actionSheet.addAction(shareAudioUrlOption)
@@ -116,7 +187,9 @@ class PickerHelper {
 //            if CoreKit.shared.filesConfig.enabledFileTypes.contains(.document) || CoreKit.shared.filesConfig.enabledFileTypes.contains(.other) {            actionSheet.addAction(documentAction)
 //            }
 //        }
-        actionSheet.addAction(documentAction)
+        if !isCreateTicket {
+            actionSheet.addAction(documentAction)
+        }
 
         actionSheet.addAction(cancelAction)
 
@@ -153,6 +226,8 @@ class PickerHelper {
             self.documentPicker = CoreDocumentPicker(controller: self.currentViewController)
             self.documentPicker?.delegate = self.delegate
             self.documentPicker?.presentIn(viewController: self.currentViewController, completion: nil)
+        case "Send Current Location":
+            self.delegate?.sendLocationClicked()  
         default :
             print("default")
         }

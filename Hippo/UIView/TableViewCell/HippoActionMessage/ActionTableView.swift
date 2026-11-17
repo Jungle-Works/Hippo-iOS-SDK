@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol ActionTableViewDelegate: class {
+protocol ActionTableViewDelegate: AnyObject {
     func performActionFor(selectionId: String, message: HippoMessage)
 }
 
@@ -69,9 +69,21 @@ class ActionTableView: MessageTableViewCell {
         tableView.register(UINib(nibName: "ActionTagTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "ActionTagTableViewCell")
         tableView.register(UINib(nibName: "SelfMessageTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "SelfMessageTableViewCell")
         tableView.register(UINib(nibName: "SupportMessageTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "SupportMessageTableViewCell")
+        // ActionTableDataSource dequeues these Customer-prefixed identifiers for the customer
+        // app (reply-preview rows inside an action/bot message) but this table never
+        // registered them — only the outer chat table did — causing an unrecoverable
+        // "unable to dequeue a cell" crash the first time a customer reply preview rendered.
+        tableView.register(UINib(nibName: "CustomerSelfMessageTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "CustomerSelfMessageTableViewCell")
+        tableView.register(UINib(nibName: "CustomerSupportMessageTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "CustomerSupportMessageTableViewCell")
         tableView.register(UINib(nibName: "OutgoingImageCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "OutgoingImageCell")
+        // Customer answers to a bot file question use the same themed cells as the chat.
+        tableView.register(UINib(nibName: "CustomerOutgoingImageCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "CustomerOutgoingImageCell")
+        tableView.register(UINib(nibName: "CustomerOutgoingDocumentTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "CustomerOutgoingDocumentTableViewCell")
+        tableView.register(UINib(nibName: "CustomerOutgoingAudioTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "CustomerOutgoingAudioTableViewCell")
+        tableView.register(UINib(nibName: "OutgoingAudioTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "OutgoingAudioTableViewCell")
         tableView.register(UINib(nibName: "OutgoingDocumentTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "OutgoingDocumentTableViewCell")
         tableView.register(UINib(nibName: "OutgoingVideoTableViewCell", bundle: FuguFlowManager.bundle), forCellReuseIdentifier: "OutgoingVideoTableViewCell")
+        tableView.register(BotAddressAnswerCell.self, forCellReuseIdentifier: BotAddressAnswerCell.identifier)
         
         
     }
@@ -136,6 +148,8 @@ extension ActionTableView: UITableViewDelegate {
             return (message.cellDetail?.headerHeight ?? 0.01) + 6
         case .buttons:
             return message.cellDetail?.actionHeight ?? message.cellDetail?.responseHeight ?? 0.01
+        case .response:
+            return message.cellDetail?.responseHeight ?? 0.01
         }
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

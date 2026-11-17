@@ -15,6 +15,8 @@ struct RequestIdenfier {
     static let getAllConversationIdentfier = "HIPPO_GET_ALL_CONVERSATION_IDENTIFIER"
     static let geto2oChatConversationIdentfier = "HIPPO_o2oCHAT_IDENTIFIER"
     static let getHistoryConversationIdentfier = "HIPPO_GET_HISTORY_CONVERSATION_IDENTIFIER"
+    static let getp2pChatConversationIdentfier = "HIPPO_p2pCHAT_IDENTIFIER"
+    static let getSupportChatConversationIdentfier = "HIPPO_SUPPORTCHAT_IDENTIFIER"
     static let authLoginIdentifier = "HIPPO_AUTH_LOGIN_IDENTIFIER"
     static let agentLoginIdentifier = "HIPPO_AGENT_LOGIN1_IDENTIFIER"
     static let getCountrycode = "tookanGetCountrycode"
@@ -196,8 +198,9 @@ class MessageStore {
         
         let endPage = requestParam.pageEnd == nil ? requestParam.pageStart + iOSPageLimit : requestParam.pageEnd!
         params["page_end"] = endPage
-        
-        
+
+      //  params["channel_attributes"] = "{\"is_ai_conversation\": \(BussinessProperty.current.isAiBotEnabled == true)}"
+
 //        print("=====> Param \(params)")
         return params
     }

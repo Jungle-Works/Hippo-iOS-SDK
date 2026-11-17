@@ -58,10 +58,16 @@ class FuguFlowManager: NSObject {
        guard let navigationController = storyboard.instantiateViewController(withIdentifier: "FuguCustomerNavigationController") as? UINavigationController, let topVC = navigationController.topViewController else {
           return
        }
-//       let visibleController = getLastVisibleController()
-     
         viewController.navigationController?.pushViewController(topVC, animated: animation)
-//       visibleController?.present(navigationController, animated: animation, completion: nil)
+    }
+    
+    func presentFlutterCustomerConversations(animation: Bool = true) {
+        guard let navigationController = storyboard.instantiateViewController(withIdentifier: "NewFuguCustomerNavigationController") as? UINavigationController else {
+            return
+        }
+        let visibleController = getLastVisibleController()
+        navigationController.modalPresentationStyle = .fullScreen
+        visibleController?.present(navigationController, animated: animation, completion: nil)
     }
     
     func presentPromotionalpushController(animation: Bool = true) {
@@ -75,6 +81,30 @@ class FuguFlowManager: NSObject {
         navigationController.modalPresentationStyle = .fullScreen
         visibleController?.present(navigationController, animated: animation, completion: nil)
     }
+    
+    func presentTicketPushController(animation: Bool = true) {
+
+        guard let navigationController = storyboard.instantiateViewController(withIdentifier: "FuguTicketsNavigationController") as? UINavigationController else {
+            return
+        }
+        let visibleController = getLastVisibleController()
+        navigationController.modalPresentationStyle = .fullScreen
+        visibleController?.present(navigationController, animated: animation, completion: nil)
+    }
+    
+    func presentOtpPushController(animation: Bool = true) {
+//        guard let navigationController = storyboard.instantiateViewController(withIdentifier: "WhatsAppViewController") as? WhatsAppViewController else {
+//            return
+//        }
+//        let visibleController = getLastVisibleController()
+//        guard ((visibleController as? WhatsAppViewController) == nil) else {
+//            return
+//        }
+//        navigationController.modalPresentationStyle = .fullScreen
+//        visibleController?.present(navigationController, animated: animation, completion: nil)
+    }
+    
+    
     
     func presentNLevelViewController(animation: Bool = true) {
         self.openFAQScreen(animation: animation)
@@ -143,6 +173,7 @@ class FuguFlowManager: NSObject {
         naVC.modalPresentationStyle = .fullScreen
         visibleController?.present(naVC, animated: true, completion: nil)
     }
+    
     func openChatViewController(labelId: Int) {
         
         let conversationViewController = ConversationsViewController.getWith(labelId: labelId.description)
@@ -154,6 +185,7 @@ class FuguFlowManager: NSObject {
         conversationViewController.createConversationOnStart = true
         visibleController?.present(navVC, animated: false, completion: nil)
     }
+    
     func openChatViewControllerTempFunc(labelId: Int) {
         
         let conversationViewController = ConversationsViewController.getWith(labelId: labelId.description)
@@ -280,7 +312,7 @@ class FuguFlowManager: NSObject {
             return false
         }
         
-        if let muid = userInfo["muid"] as? String {
+        if let muid = userInfo["muid"] as? String, muid.isEmpty == false {
             if HippoConfig.shared.muidList.contains(muid) {
                 return false
             }

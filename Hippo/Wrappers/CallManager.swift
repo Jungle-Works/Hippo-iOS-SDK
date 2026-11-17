@@ -211,6 +211,7 @@ class CallManager {
         }
         
         let groupCallChannel = GroupCallChannel(channel_id)
+        restoreCurrentUserForKilledStateCall()
         guard let currentUser = getCurrentUser() else {
             return
         }
@@ -228,12 +229,8 @@ class CallManager {
         }
         let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelID)
         
-        if HippoConfig.shared.userDetail == nil {
-            HippoConfig.shared.userDetail = HippoUserDetail()
-        } else if HippoConfig.shared.agentDetail == nil {
-            HippoConfig.shared.setAgentStoredData()
-        }
-        
+        restoreCurrentUserForKilledStateCall()
+
         guard let currentUser = getCurrentUser() else {
             return
         }
@@ -276,6 +273,19 @@ class CallManager {
     }
     
     #if canImport(HippoCallClient)
+    /// A VoIP push can relaunch a killed app without the app's login flow running, so
+    /// rebuild the logged-in user from what was persisted at login. Agent first (its
+    /// login data is stored; a customer login clears it), then the cached customer.
+    /// Without this, the call joins Jitsi as "Visitor" with no photo.
+    private func restoreCurrentUserForKilledStateCall() {
+        if HippoConfig.shared.agentDetail == nil {
+            HippoConfig.shared.setAgentStoredData()
+        }
+        if HippoConfig.shared.agentDetail == nil, HippoConfig.shared.userDetail == nil {
+            HippoConfig.shared.userDetail = HippoUserDetail.restoredFromCallIdentityCache()
+        }
+    }
+
     func getCurrentUser() -> HippoUser? {
         switch HippoConfig.shared.appUserType {
         case .customer:
@@ -306,7 +316,7 @@ extension CallManager: HippoCallClientDelegate {
     func callStarted(isCallStarted: Bool) {
          HippoConfig.shared.jitsiOngoingCall = isCallStarted
     }
-    
+
     func loadCallPresenterView(request: CallPresenterRequest) -> CallPresenter? {
         return HippoConfig.shared.notifyCallRequest(request)
     }
@@ -314,7 +324,7 @@ extension CallManager: HippoCallClientDelegate {
     func shareUrlApiCall(url : String) {
         let shareUrlHelper = ShareUrlHelper()
         shareUrlHelper.shareUrlApiCall(url: url) { (url) in
-            if let view = UIApplication.shared.windows.first?.subviews.last {
+            if let view = UIApplication.shared.currentKeyWindow?.subviews.last {
                 let text = url
                 
                 // set up activity view controller

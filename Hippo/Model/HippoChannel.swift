@@ -27,13 +27,20 @@ struct HippoChannelCreationResult {
     }
 }
 
-protocol HippoChannelDelegate: class {
+protocol HippoChannelDelegate: AnyObject {
     func newMessageReceived(newMessage: HippoMessage)
     func typingMessageReceived(newMessage: HippoMessage)
     func sendingFailedFor(message: HippoMessage)
     func cancelSendingMessage(message: HippoMessage, errorMessage: String?,errorCode : SocketClient.SocketError?)
     func channelDataRefreshed()
     func closeChatActionFromRefreshChannel()
+    /// Raw socket push for this channel, delivered before any notification_type
+    /// routing so that channel-update pushes are seen too. Optional.
+    func socketPushReceived(dict: [String: Any])
+}
+
+extension HippoChannelDelegate {
+    func socketPushReceived(dict: [String: Any]) {}
 }
 struct CreateConversationWithLabelId {
     var replyMessage: HippoMessage?
@@ -231,7 +238,7 @@ class HippoChannel {
     
     class func saveHashMapTransactionIdToChannelIDInCache(hashMap: [String: Int]) {
         
-        var sourceDict = hashMap
+        let sourceDict = hashMap
         var uniqueValues = Set<Int>()
         var resultDict = [String: Int](minimumCapacity: sourceDict.count)
         //The reserveCapacity() function doesn't exist for Dictionaries, as pointed
@@ -371,6 +378,7 @@ class HippoChannel {
             requestParam["bot_form_muid"] = parsedBotMessageMUID
         }
         
+        requestParam["is_ai_conversation"] = BussinessProperty.current.isAiBotEnabled ?? false ? "true" : "false"
         //requestParam["initiate_bot_group_id"] = 569
         
         HippoConfig.shared.log.debug("API_CREATE_CONVERSATION.....\(requestParam)", level: .request)
@@ -386,7 +394,8 @@ class HippoChannel {
             }
             
 //            let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelID)
-            print("API_CREATE_CONVERSATION_RESPONSE******* ", response)
+            HippoConfig.shared.log.debug("API_CREATE_CONVERSATION_RESPONSE*******", level: .info)
+
             let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelID)
             channel.chatDetail?.agentAlreadyAssigned = data["agent_already_assigned"] as? Bool ?? false
             
@@ -690,6 +699,13 @@ class HippoChannel {
                 }
                 
                 HippoConfig.shared.log.trace("Active channel Recieveddddd -\(self?.id ?? 0000) >>>>> \(messageDict)", level: .socket)
+
+                // Composer visibility is decided from the raw push, before
+                // notification_type routing drops channel-update pushes below.
+                DispatchQueue.main.async {
+                    self?.delegate?.socketPushReceived(dict: messageDict)
+                }
+
                 guard let weakSelf = self, weakSelf.handleByNotification(dict: messageDict) else {
                     return
                 }
@@ -697,14 +713,21 @@ class HippoChannel {
                 guard let message = HippoMessage.createMessage(rawMessage: messageDict, chatType: chatType) else {
                     return
                 }
-                if message.type == .call {
-                    if versionCode < 350 && HippoConfig.shared.appUserType == .agent{
-                        DispatchQueue.main.async {
-                            self?.signalReceivedFromPeer?(messageDict)
-                            CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
+                if messageDict.isEmpty == false{
+                    if message.type == .call {
+                        if versionCode < 350 && HippoConfig.shared.appUserType == .agent{
+                            DispatchQueue.main.async {
+                                self?.signalReceivedFromPeer?(messageDict)
+                                CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
+                            }
+                        }else{
+                            DispatchQueue.main.async {
+                                self?.signalReceivedFromPeer?(messageDict)
+                                CallManager.shared.voipNotificationRecieved(payloadDict: messageDict)
+                            }
                         }
+                        return
                     }
-                    return
                 }
                 let error = messageDict["error"] as? [String:Any]
                 let userIdReceivedInSocket = messageDict["user_id"] as? Int
@@ -896,6 +919,13 @@ class HippoChannel {
             if let oldActionMessage = oldMessage as? HippoActionMessage, let newActionMessage = newMessage as? HippoActionMessage {
                 oldActionMessage.updateObject(with: newActionMessage)
             }
+        case .leadForm where oldMessage.hasSameFormProgress(as: newMessage):
+            // Echo of a form we already show (e.g. our own submit coming back over the socket).
+            // Keep the current field objects and skip the chat reload: a reload takes the
+            // keyboard off the field and puts it back, which flickers the keyboard.
+            let fields = oldMessage.leadsDataArray
+            oldMessage.updateObject(with: newMessage)
+            oldMessage.leadsDataArray = fields
         case .feedback, .leadForm:
             oldMessage.updateObject(with: newMessage)
             delegate?.channelDataRefreshed()
@@ -999,8 +1029,12 @@ class HippoChannel {
 //                    }
 //                    return
 //                }
-        if isSendingDisabled && !(message.type == .feedback){
-            print("----sending is disabled")
+        // disable_reply only blocks the free-text composer. Answers to the bot's own widgets
+        // must still go out: get_messages returns disable_reply = true while a bot is running,
+        // so after reopening the chat a multiselect submit was dropped here and the bot stalled.
+        let isBotWidgetAnswer = message.type == .feedback || message.type == .multipleSelect
+        if isSendingDisabled && !isBotWidgetAnswer {
+            HippoConfig.shared.log.trace("-->\(id) == NOT SENT, sending is disabled == type=\(message.type.rawValue) muid=\(message.messageUniqueID ?? "nil")", level: .socket)
             return
         }
         

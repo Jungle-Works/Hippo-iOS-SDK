@@ -38,8 +38,14 @@ class BroadCastViewController: UIViewController {
         setUpView()
         setupTableView()
         checkForInitalization()
+        // loginDataUpdated is business-logic: register once for VC lifetime
         NotificationCenter.default.addObserver(self, selector: #selector(loginDataUpdated), name: .agentLoginDataUpated, object: nil)
-        
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+        // Keyboard observers are UI-dependent: only needed while this screen is visible
         #if swift(>=4.2)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(sender:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(sender:)), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -48,11 +54,22 @@ class BroadCastViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(sender:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         #endif
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        tableView.reloadData()
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        #if swift(>=4.2)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        #else
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        #endif
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
     @IBAction func backButtonAction(_ sender: UIButton) {
         NotificationCenter.default.removeObserver(self)
         if self.navigationController == nil {

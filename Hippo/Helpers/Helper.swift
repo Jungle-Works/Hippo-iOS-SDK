@@ -23,38 +23,39 @@ class Helper {
     }
     
     class func getIncomingAttributedStringWithLastUserCheck(chatMessageObject: HippoMessage) -> NSMutableAttributedString {
-//    let isAboveMessageIsFromSameUser: Bool = (chatMessageObject.aboveMessageUserId == chatMessageObject.senderId && chatMessageObject.type != .consent && chatMessageObject.aboveMessageType != .consent) && chatMessageObject.aboveMessageType != .assignAgent
-    let isAboveMessageIsFromSameUser: Bool = (chatMessageObject.aboveMessageUserId == chatMessageObject.senderId && chatMessageObject.type != .consent && chatMessageObject.aboveMessageType != .consent) && chatMessageObject.aboveMessageType != .assignAgent && chatMessageObject.belowMessageType != .card
-    let messageString = chatMessageObject.message
-//    let userNameString = isAboveMessageIsFromSameUser ? "" : chatMessageObject.senderFullName
-//    let middleString = isAboveMessageIsFromSameUser ? "" : "\n"
-
-    let isSelfMessage = chatMessageObject.isSelfMessage(for: chatMessageObject.chatType)
-    let theme = HippoConfig.shared.theme
-    let messageColor: UIColor
-    let timeColor: UIColor
-    let nameColor: UIColor
-
-    switch HippoConfig.shared.appUserType {
-    case .agent:
-    messageColor = isSelfMessage ? theme.outgoingMsgColor : theme.incomingMsgColor
-    timeColor = isSelfMessage ? theme.outgoingMsgDateTextColor : theme.incomingMsgDateTextColor
-    nameColor = isSelfMessage ? theme.senderNameColor : theme.senderNameColor
-
-    default:
-    messageColor = isSelfMessage ? theme.outgoingMsgColor : theme.incomingMsgColor
-    timeColor = isSelfMessage ? theme.outgoingMsgDateTextColor : theme.incomingMsgDateTextColor
-    nameColor = isSelfMessage ? theme.senderNameColor : theme.senderNameColor
-    }
-
-
-//    return attributedStringForLabel(userNameString, secondString: middleString + messageString, thirdString: "", colorOfFirstString: nameColor, colorOfSecondString: messageColor, colorOfThirdString: timeColor, fontOfFirstString: HippoConfig.shared.theme.senderNameFont, fontOfSecondString: HippoConfig.shared.theme.incomingMsgFont, fontOfThirdString: UIFont.systemFont(ofSize: 11.0), textAlighnment: .left, dateAlignment: .right)
+        //    let isAboveMessageIsFromSameUser: Bool = (chatMessageObject.aboveMessageUserId == chatMessageObject.senderId && chatMessageObject.type != .consent && chatMessageObject.aboveMessageType != .consent) && chatMessageObject.aboveMessageType != .assignAgent
+        let _ = (chatMessageObject.aboveMessageUserId == chatMessageObject.senderId && chatMessageObject.type != .consent && chatMessageObject.aboveMessageType != .consent) && chatMessageObject.aboveMessageType != .assignAgent && chatMessageObject.belowMessageType != .card
+        let messageString = chatMessageObject.message
+        //    let userNameString = isAboveMessageIsFromSameUser ? "" : chatMessageObject.senderFullName
+        //    let middleString = isAboveMessageIsFromSameUser ? "" : "\n"
+        
+        let isSelfMessage = chatMessageObject.isSelfMessage(for: chatMessageObject.chatType)
+        let theme = HippoConfig.shared.theme
+        let messageColor: UIColor
+        let timeColor: UIColor
+        let nameColor: UIColor
+        
+        switch HippoConfig.shared.appUserType {
+        case .agent:
+            messageColor = isSelfMessage ? theme.outgoingMsgColor : theme.incomingMsgColor
+            timeColor = isSelfMessage ? theme.outgoingMsgDateTextColor : theme.incomingMsgDateTextColor
+            nameColor = isSelfMessage ? theme.senderNameColor : theme.senderNameColor
+            
+        default:
+            messageColor = isSelfMessage ? theme.outgoingMsgColor : theme.incomingMsgColor
+            timeColor = isSelfMessage ? theme.outgoingMsgDateTextColor : theme.incomingMsgDateTextColor
+            nameColor = isSelfMessage ? theme.senderNameColor : theme.senderNameColor
+        }
+        
+        
+        //    return attributedStringForLabel(userNameString, secondString: middleString + messageString, thirdString: "", colorOfFirstString: nameColor, colorOfSecondString: messageColor, colorOfThirdString: timeColor, fontOfFirstString: HippoConfig.shared.theme.senderNameFont, fontOfSecondString: HippoConfig.shared.theme.incomingMsgFont, fontOfThirdString: UIFont.systemFont(ofSize: 11.0), textAlighnment: .left, dateAlignment: .right)
         return attributedStringForLabel("", secondString: messageString, thirdString: "", colorOfFirstString: nameColor, colorOfSecondString: messageColor, colorOfThirdString: timeColor, fontOfFirstString: HippoConfig.shared.theme.senderNameFont, fontOfSecondString:  HippoConfig.shared.theme.incomingMsgFont, fontOfThirdString: UIFont.regular(ofSize: 11.0), textAlighnment: .left, dateAlignment: .right)
     }
 }
+
 class CustomLoader{
     
-     static let shared = CustomLoader()
+    static let shared = CustomLoader()
     lazy var loader = UIImageView()
     //lazy var loaderView = UIView()
     private var backgroundView = UIView()
@@ -91,7 +92,7 @@ class CustomLoader{
         //loaderView.isHidden = true
         backgroundView.removeFromSuperview()
         loader.removeFromSuperview()
-       // loaderView.removeFromSuperview()
+        // loaderView.removeFromSuperview()
     }
     
 }

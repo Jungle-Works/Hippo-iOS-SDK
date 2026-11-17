@@ -25,9 +25,27 @@ struct DefaultKey {
     static let myChatConversations = "Agent_My_Chat_Data"
     static let allChatConversations = "Agent_All_chat_Data"
     static let AgentsList = "Hippo_agent_data"
-    static let o2oChatConversations = "Agent_O2O_Chat_Data"
+    static let p2pChatConversations = "Agent_P2P_Chat_Data"
+    static let supportChatConversations = "Agent_Support_Chat_Data"
     static let tagsList = "Hippo_tags_details"
     static let channelDetails = "Hippo_channel_details"
+}
+
+struct HippoDefaultKeys {
+    static let UnsentMessagesData = "unsent_messages_data"
+    static let SentMessagesData = "sent_messages_data"
+    static let ConversationData = "fugu_conversation_data"
+    static let AgentsList = "Hippo_agent_data"
+    static let CannedReplyList = "Hippo_Canned_reply"
+    static let LoginData = "Hippo_Login_Data"
+    static let hippoAgentLogs = "hippo_agent_logs"
+    static let hippoFayeConnectionLogs = "hippo_agent_faye_connection_logs"
+    static let hippoFayeMessages = "hippo_agent_faye_messages"
+    static let tagsList = "Hippo_tags_details"
+    static let channelDetails = "Hippo_channel_detais"
+    static let stringConstants = "Hippo_Business_string_constants"
+    static let businessProperties = "Hippo_Business_Property"
+    static let appServerConfig = "Hippo_App_Server_Config"
 }
 
 class FuguDefaults: NSObject {

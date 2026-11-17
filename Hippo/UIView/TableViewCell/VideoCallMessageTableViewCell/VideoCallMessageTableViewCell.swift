@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol VideoCallMessageTableViewCellDelegate: class {
+protocol VideoCallMessageTableViewCellDelegate: AnyObject {
     func callAgainButtonPressed(callType: CallType)
 }
 
@@ -22,7 +22,9 @@ private var dateComponentFormatter: DateComponentsFormatter = {
 class VideoCallMessageTableViewCell: MessageTableViewCell {
    
    // MARK: - Properties
-   @IBOutlet weak var dateTimeLabel: UILabel!
+    @IBOutlet weak var nameLbl: UILabel!
+    @IBOutlet weak var nameView: UIView!
+    @IBOutlet weak var dateTimeLabel: UILabel!
    @IBOutlet weak var messageLabel: UILabel!
    
     @IBOutlet weak var centerLineView: UIView!
@@ -47,7 +49,6 @@ class VideoCallMessageTableViewCell: MessageTableViewCell {
 
         messageBackgroundView.layer.masksToBounds = true
         messageBackgroundView.layer.cornerRadius = 5
-        
         messageBackgroundView.layer.borderWidth = HippoConfig.shared.theme.chatBoxBorderWidth
         messageBackgroundView.layer.borderColor = HippoConfig.shared.theme.chatBoxBorderColor.cgColor
     }
@@ -80,12 +81,11 @@ class IncomingVideoCallMessageTableViewCell: VideoCallMessageTableViewCell {
    
     func setCellWith(message: HippoMessage, isCallingEnabled: Bool) {
         super.intalizeCell(with: message, isIncomingView: true)
-        
         if message.isMissedCall {
             
             messageBackgroundView.backgroundColor = HippoConfig.shared.theme.missedCallColor
             callAgainButton.setTitle(HippoStrings.callback, for: .normal)
-            phoneIcon.image = UIImage(named: "missed")
+            phoneIcon.image = UIImage(named: "missed", in: FuguFlowManager.bundle, compatibleWith: nil)
             phoneIcon.tintColor = UIColor.white
             
             
@@ -96,7 +96,7 @@ class IncomingVideoCallMessageTableViewCell: VideoCallMessageTableViewCell {
             
             callAgainButton.setTitle(HippoStrings.callAgain, for: .normal)
             
-            phoneIcon.image = UIImage(named: "incomming")
+            phoneIcon.image = UIImage(named: "incomming", in: FuguFlowManager.bundle, compatibleWith: nil)
         }
         
         messageLabel.textColor = UIColor.white
@@ -117,7 +117,7 @@ class IncomingVideoCallMessageTableViewCell: VideoCallMessageTableViewCell {
 class OutgoingVideoCallMessageTableViewCell: VideoCallMessageTableViewCell {
    override func awakeFromNib() {
       super.awakeFromNib()
-      
+    nameLbl.font = HippoConfig.shared.theme.broadcastTitleInfoFont
       messageBackgroundView.backgroundColor = HippoConfig.shared.theme.outgoingChatBoxColor
     
     messageBackgroundView.layer.cornerRadius = 10
@@ -133,11 +133,15 @@ class OutgoingVideoCallMessageTableViewCell: VideoCallMessageTableViewCell {
    
     func setCellWith(message: HippoMessage, otherUserName: String, isCallingEnabled: Bool) {
         self.message = message
-        
+        if message.senderFullName != HippoConfig.shared.agentDetail?.fullName ?? "" && message.senderFullName != "Visitor"{
+            nameLbl.text = message.senderFullName
+        }else{
+            nameLbl.text = "You"
+        }
         if message.isMissedCall {
            
             callAgainButton.setTitle(HippoStrings.callback, for: .normal)
-            phoneIcon.image = UIImage(named: "missed")
+            phoneIcon.image = UIImage(named: "missed", in: FuguFlowManager.bundle, compatibleWith: nil)
             phoneIcon.tintColor = UIColor.black
             
             
@@ -145,7 +149,7 @@ class OutgoingVideoCallMessageTableViewCell: VideoCallMessageTableViewCell {
            // messageLabel.textColor = HippoConfig.shared.theme.outgoingMsgColor
             callAgainButton.setTitle(HippoStrings.callAgain, for: .normal)
             
-            phoneIcon.image = UIImage(named: "outgoing")
+            phoneIcon.image = UIImage(named: "outgoing", in: FuguFlowManager.bundle, compatibleWith: nil)
             phoneIcon.tintColor = UIColor.black
         }
         
@@ -167,21 +171,22 @@ class OutgoingVideoCallMessageTableViewCell: VideoCallMessageTableViewCell {
 
 extension HippoMessage {
     func getVideoCallMessage(otherUserName: String) -> String {
-        let callTypeString = getCallTypeString()
-        
-        if let activeVideoCallID = CallManager.shared.findActiveCallUUID(), messageUniqueID == activeVideoCallID {
-            return "\(HippoStrings.ongoing_call) \(callTypeString) \(HippoStrings.call)"
+        // Collapse the "<missed> <type> <call>" template, dropping the type word (and
+        // its space) when the medium is unknown — e.g. the conversation list, whose
+        // payload has no call_type.
+        func joined(_ parts: String...) -> String {
+            parts.filter { !$0.trimWhiteSpacesAndNewLine().isEmpty }.joined(separator: " ")
         }
-       // let tempOtherUser = otherUserName.isEmpty ? "Other user" : otherUserName
-        
+        let callTypeString = isCallTypeKnown ? getCallTypeString() : ""
+
+        if let activeVideoCallID = CallManager.shared.findActiveCallUUID(), messageUniqueID == activeVideoCallID {
+            return joined(HippoStrings.ongoing_call, callTypeString, HippoStrings.call)
+        }
+
         if isMissedCall {
-            if isSentByMe() {
-                return "\(HippoStrings.missed) \(callTypeString) \(HippoStrings.call)"//"\(tempOtherUser) missed a \(callTypeString) call with you"
-            } else {
-                return "\(HippoStrings.missed) \(callTypeString) \(HippoStrings.call)"//"You missed a \(callTypeString) call with \(senderFullName)"
-            }
+            return joined(HippoStrings.missed, callTypeString, HippoStrings.call)
         } else {
-            return "\(HippoStrings.the) \(callTypeString) \(HippoStrings.callEnded)."
+            return joined(HippoStrings.the, callTypeString, HippoStrings.callEnded) + "."
         }
     }
     
@@ -192,6 +197,24 @@ extension HippoMessage {
         
         return (dateComponentFormatter.string(from: duration) ?? "") + " \(HippoStrings.at)"
     }
+    enum CallIconKind {
+        case incoming, outgoing, missed
+    }
+    
+    /// Call-log glyph for this message (customer-facing call cards): the video set for a
+    /// known video call, otherwise the voice set (also the fallback when the payload has
+    /// no call_type). Template-rendered so the card's call-icon colour tokens tint it.
+    func callIcon(_ kind: CallIconKind) -> UIImage? {
+        let isVideo = isCallTypeKnown && callType == .video
+        let name: String
+        switch kind {
+        case .incoming: name = isVideo ? "incommingVideoCall" : "incomming"
+        case .outgoing: name = isVideo ? "outgoingVideoCall" : "outgoing"
+        case .missed:   name = isVideo ? "missedVideoCall" : "missed"
+        }
+        return UIImage(named: name, in: FuguFlowManager.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    }
+    
     func getCallTypeString() -> String {
         switch callType {
         case .video:

@@ -17,7 +17,7 @@ import HippoCallClient
 import JitsiMeetSDK
 #endif
 
-public protocol HippoMessageRecievedDelegate: class {
+public protocol HippoMessageRecievedDelegate: AnyObject {
     func hippoMessageRecievedWith(response: [String: Any], viewController: UIViewController)
 }
 
@@ -41,9 +41,11 @@ enum PrivateSocketKeys: String {
 
 
 struct SERVERS {
+//    static let liveUrl = "https://migration-test-api.hippochat.io/"
+//    static let liveFaye = "https://migration-test-api.hippochat.io"//"https://socketv2.hippochat.io/faye"//
     static let liveUrl = "https://api.hippochat.io/"
-    static let liveFaye = "https://event.hippochat.io"//"https://socketv2.hippochat.io/faye"//
-
+    static let liveFaye = "https://event.hippochat.io"
+      
     static let betaUrl = "https://hippog-server.hippochat.io:3003/"
     static let betaFaye = "https://hippog-server.hippochat.io:3003/"
     //3002 - for notp
@@ -129,39 +131,46 @@ struct WhatsappWidgetConfig{
 @objcMembers public class HippoConfig : NSObject {
     
     public static var shared = HippoConfig()
-    
+    static let folder = FileDefault(folderName: "HippoContent", ext: "json")
     public typealias commonHippoCallback = ((_ success: Bool, _ error: Error?) -> ())
     // MARK: - Properties
     internal var log = CoreLogger(formatter: Formatter.defaultFormat, theme: nil, minLevels: [.all])
     internal var muidList: [String] = []
     internal var pushArray = [PushInfo]()
     internal var checker: HippoChecker = HippoChecker()
-    private(set)  open var isBroadcastEnabled: Bool = false
-    open weak var messageDelegate: HippoMessageRecievedDelegate?
+    private(set) public var isBroadcastEnabled: Bool = false
+    public weak var messageDelegate: HippoMessageRecievedDelegate?
     internal weak var delegate: HippoDelegate?
     internal var deviceToken = ""
     internal var voipToken = ""
     internal var ticketDetails = HippoTicketAtrributes(categoryName: "")
-    internal var theme = HippoTheme.defaultTheme()
+    public var whatsappSecretKey: String = ""
+    public var theme = HippoTheme.defaultTheme()
+    public var colorConfig = HippoColorConfig()
     internal var userDetail: HippoUserDetail?
     internal var jitsiUrl : String?
     internal var jitsiOngoingCall : Bool?
     internal var agentDetail: AgentDetail?
     public var strings = HippoStrings()
-    private(set)  open var newConversationButtonBorderWidth: Float = 0.0
+    public var apiLogging: Int = 1
+    private(set) public var newConversationButtonBorderWidth: Float = 0.0
+    var processedMessageMUIDs = Set<String>()
+    private(set) public var isSuggestionNeeded = false
+    private(set) public var maxSuggestionCount = 10
+    private(set) public var questions = [String: Int]()//Dictionary<String, Int>()
+    private(set) public var suggestions = [Int: String]()//Dictionary<Int, String>()
+    private(set) public var mapping = [Int: [Int]]()//Dictionary<Int, Array<Int>>()
     
-    private(set)  open var isSuggestionNeeded = false
-    private(set)  open var maxSuggestionCount = 10
-    private(set)  open var questions = [String: Int]()//Dictionary<String, Int>()
-    private(set)  open var suggestions = [Int: String]()//Dictionary<Int, String>()
-    private(set)  open var mapping = [Int: [Int]]()//Dictionary<Int, Array<Int>>()
+    private(set) public var hasChannelTabs = true//false
     
-    private(set)  open var hasChannelTabs = true//false
-    
-    open var isPaymentRequestEnabled: Bool {
+    public var isPaymentRequestEnabled: Bool {
         return HippoProperty.current.isPaymentRequestEnabled
     }
-    
+
+    public var isAiBotEnabled: Bool {
+        return BussinessProperty.current.isAiBotEnabled ?? false
+    }
+
     internal var groupCallData: [String : Any] {
         get {
             guard let groupCallData = UserDefaults.standard.value(forKey: Fugu_groupCallData) as? [String : Any] else {
@@ -186,31 +195,33 @@ struct WhatsappWidgetConfig{
         }
     }
     
-    var deviceKey : String = ""
+    var deviceKey: String {
+        get { return UserDefaults.standard.string(forKey: Hippo_Device_Key) ?? "" }
+        set { UserDefaults.standard.set(newValue, forKey: Hippo_Device_Key) }
+    }
     var serverTimeDifference : Int = 0
-    open var appName: String = ""
+    public var appName: String = ""
     internal var appUserType = AppUserType.customer
-    internal var resellerToken = ""
-    internal var referenceId = -1
+    public var resellerToken = ""
+    public var referenceId = -1
     internal var appType: String?
     internal var offering: Int = 0
     internal var credentialType = FuguCredentialType.defaultType
     var isSkipBot:Bool = false
     internal var baseUrl =      SERVERS.liveUrl     // SERVERS.betaUrl//
     internal var fayeBaseURLString: String =     SERVERS.liveFaye   // SERVERS.betaFaye//
-    open var unreadCount: ((_ totalUnread: Int) -> ())?
-    open var usersUnreadCount: ((_ userUnreadCount: [String: Int]) -> ())?
-    open var HippoDismissed: ((_ isDismissed: Bool) -> ())?
-    open var HippoPrePaymentCancelled: (()->())?
-    open var HippoPrePaymentSuccessful: ((Bool)->())?
+    public var unreadCount: ((_ totalUnread: Int) -> ())?
+    public var usersUnreadCount: ((_ userUnreadCount: [String: Int]) -> ())?
+    public var HippoDismissed: ((_ isDismissed: Bool) -> ())?
+    public var HippoPrePaymentCancelled: (()->())?
+    public var HippoPrePaymentSuccessful: ((Bool)->())?
     public var HippoLanguageChanged : ((Error?)->())?
     public var HippoSessionStatus: ((GroupCallStatus)->())?
     public var announcementUnreadCount : ((Int)->())?
-    public var whatsappSecretKey: String = ""
     var supportChatFilter : [SupportFilter]?
     public var localAnnouncementUnreadCount = 0
     public var hideTabbar : ((Bool)->())?
-    
+    public var localUnreadCount = 0
     internal let powererdByColor = #colorLiteral(red: 0.4980392157, green: 0.4980392157, blue: 0.4980392157, alpha: 1)
     internal let FuguColor = #colorLiteral(red: 0.3843137255, green: 0.4901960784, blue: 0.8823529412, alpha: 1)
     internal let poweredByFont: UIFont = UIFont.regular(ofSize: 10.0)
@@ -229,7 +240,7 @@ struct WhatsappWidgetConfig{
             versionCode = 450
         }
     }
-    
+   
     internal let listener = SocketListner()
     ///turn its value true to show slow internet bar on chat screen
     public var shouldShowSlowInternetBar : Bool?
@@ -239,13 +250,27 @@ struct WhatsappWidgetConfig{
     var whatsappWidgetConfig: WhatsappWidgetConfig?
     var isOpenedFromPush : Bool?
     var disableRecordingButton: Bool?
+    private(set) public var isRecordingButtonEnabled: Bool = true
+    // Empty conversation state; nothing is shown unless the host app sets the text.
+    private(set) public var emptyChatText: String?
+    private(set) public var emptyChatImage: UIImage?
+    var botButtonActionCallBack: ((Any) -> Void)?
     public var newChatCallback: ((Int) -> (Int?, Bool?))?
-    
     var isPopUpCalledBeforeCaching = false
     var popupCallbacksCache: [([String: Any]) -> Void]?
     var screenToShowPopUpOn: UIViewController?
-
-    
+    public var userTags = [String]()
+    public var attachments = [AttachmentData(path: "", type: "")]
+    public var customer_email: String?
+    public var customer_name: String?
+    public var subject: String?
+    public var issueDescription : String?
+    public var fileUrls = [String]()
+    public var fileType = [String]()
+    public var agentEmail: String = ""
+    public var groupingTags = [String]()
+    public var isFromPantherFirstChat: Bool = false
+    public var isFromPantherCallBtn: Bool = false
     // MARK: - Intialization
     private override init() {
         super.init()
@@ -257,7 +282,9 @@ struct WhatsappWidgetConfig{
         
         
     }
-    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     //MARK:- Function to pass Deep link Dic
     //Function is called on click of deep link form promotion view controller
     func getDeepLinkData(_ data : [String : Any]){
@@ -283,7 +310,7 @@ struct WhatsappWidgetConfig{
     }
     
     //Function to get current agent sdk channel id
-    open func getCurrentAgentSdkChannelId()->Int?{
+    public func getCurrentAgentSdkChannelId()->Int?{
         let topViewController = getLastVisibleController()
         //will return channel id if we have some active chat else return nil
         if topViewController is AgentConversationViewController{
@@ -302,6 +329,10 @@ struct WhatsappWidgetConfig{
         CallManager.shared.joinCallLink(customerName: currentUserName(), customerImage: currentUserImage() ?? "", url: url, isInviteEnabled: BussinessProperty.current.isCallInviteEnabled ?? false,callType: callType)
     }
     
+    public func hitStatsApi(userInfo : [String : Any]?, sendSessionTym: Bool = false, sendSeen: Bool = false,channelId:Int = 0, completion: ((Bool) -> Void)? = nil){
+        HippoUserDetail.hitStatsAPi(pushContent: userInfo, sendSessionTym: sendSessionTym, channelId: channelId)
+    }
+    
     internal func setAgentStoredData() {
         guard let storedData = AgentDetail.agentLoginData else {
             return
@@ -317,7 +348,7 @@ struct WhatsappWidgetConfig{
     public func setHippoDelegate(delegate: HippoDelegate?) {
         self.delegate = delegate
     }
-    
+
     public func setSmartChatOrderConfig(_ config: SmartChatOrderConfig) {
         HippoProperty.current.smartChatOrderConfig = config
     }
@@ -329,6 +360,10 @@ struct WhatsappWidgetConfig{
     
     public func setCustomisedHippoTheme(theme: HippoTheme) {
         self.theme = theme
+    }
+
+    public func setCustomisedColorConfig(_ config: HippoColorConfig) {
+        self.colorConfig = config
     }
     
     public func setCredential(withAppSecretKey appSecretKey: String, appType: String? = nil, offering: Int = 0) {
@@ -378,6 +413,27 @@ struct WhatsappWidgetConfig{
         
     }
     
+    
+   public func updateUnreadCount(completion: @escaping (Int) -> Void) {
+       FuguConversation.getAllConversationFromServer(config: AllConversationsConfig.defaultConfig) { result in
+           guard result.isSuccessful else {
+               let errorMessage = result.error?.localizedDescription ?? HippoStrings.somethingWentWrong
+               print(errorMessage)
+               completion(0) // Return 0 in case of error
+               return
+           }
+
+           if let conversations = result.conversations {
+               let totalUnreadCount = conversations.reduce(0) { $0 + ($1.unreadCount ?? 0) }
+               completion(totalUnreadCount)
+               self.localUnreadCount = totalUnreadCount
+               HippoConfig.shared.sendUnreadCount(totalUnreadCount)
+           } else {
+               completion(0)
+           }
+       }
+   }
+    
     func getAllStrings(){
         AllString.getAllStrings{(error,response) in
             self.HippoLanguageChanged?(error)
@@ -392,14 +448,20 @@ struct WhatsappWidgetConfig{
         }
     }
     
-    
     public static func setSkipBot(enable: Bool, reason: String) {
         HippoProperty.current.skipBot = enable
         HippoProperty.current.skipBotReason = reason
     }
     
     public func updateUserDetail(isOpenedFromPush: Bool = false, userDetail: HippoUserDetail, completion: @escaping (Bool) -> Void) {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(appWillEnterForeground),
+            name: UIApplication.willEnterForegroundNotification,
+            object: nil
+        )
         self.userDetail = userDetail
+        HippoUserDetail.cacheCallIdentity(of: userDetail)
         self.appUserType = .customer
         self.passAppSecretKeyToHippoConfig(userType: .customer)
         AgentDetail.agentLoginData = nil
@@ -410,11 +472,19 @@ struct WhatsappWidgetConfig{
             }
             self.setLanguage(self.userDetail?.selectedlanguage ?? "en")
             HippoConfig.shared.getUnreadAnnouncementCount(completion: { count in
-                          print("announcement unread count \(count)")
-                          
-                      })
+                print("announcement unread count \(count)")
+                
+            })
         }
+       
     }
+    
+    @objc private func appWillEnterForeground() {
+        updateUnreadCount(completion: { count in
+            print("unread count \(count)")
+        })
+    }
+
     
     public func enableBroadcast() {
         isBroadcastEnabled = true
@@ -509,7 +579,7 @@ struct WhatsappWidgetConfig{
      device_type: Int = your device type on your system.
      *******/
     
-    public func initManager(authToken: String, app_type: String, customAttributes: [String: Any]? = nil, selectedLanguage : String? = nil, fetchAnnouncementsUnreadCount: Bool = false,  completion: @escaping HippoResponseRecieved) {
+    public func initManager(authToken: String, app_type: String, customAttributes: [String: Any]? = nil, selectedLanguage : String? = nil, fetchAnnouncementsUnreadCount: Bool = false, completion: @escaping HippoResponseRecieved) {
         let detail = AgentDetail(oAuthToken: authToken.trimWhiteSpacesAndNewLine(), appType: app_type, customAttributes: customAttributes, userId: self.agentDetail?.id, fetchAnnouncementsUnreadCount: fetchAnnouncementsUnreadCount)
         self.appUserType = .agent
         self.agentDetail = detail
@@ -534,6 +604,30 @@ struct WhatsappWidgetConfig{
         
         AgentDetail.setAgentStoredData()
         checker.presentChatsViewController()
+    }
+    
+    public func presentFlutterChatsViewController() {
+        if let _ = whatsappWidgetConfig, let redirectDirectly = userDetail?.redirectToWhatsapp, redirectDirectly {
+            openWhatsappIfEnabled()
+            return
+        }
+        
+        AgentDetail.setAgentStoredData()
+        checker.presentFlutterChatsViewController()
+    }
+    
+    public func createTicket() {
+//        HippoConfig.shared.customer_name = ticketData?.customer_name
+//        HippoConfig.shared.customer_email = ticketData?.customer_email
+//        HippoConfig.shared.subject = ticketData?.subject
+//        HippoConfig.shared.issueDescription = ticketData?.issueDescription
+//        HippoConfig.shared.userTags = ticketData?.userTags ?? []
+//        HippoConfig.shared.attachments = ticketData?.attachments ?? []
+        checker.presentTicketController()
+    }
+    
+    public func presentOtpViewController() {
+        checker.presentOtpController()
     }
     
     public func getAgentChatVC() -> UIViewController?{
@@ -585,12 +679,12 @@ struct WhatsappWidgetConfig{
     // MARK: - Function to open whatsapp
     func openWhatsappIfEnabled(){
         guard let whatsappData = HippoConfig.shared.whatsappWidgetConfig else {return}
-        let message = whatsappData.defaultMessage
+        let message = whatsappData.defaultUserReply
         let number = whatsappData.whatsappContactNumber
         
         let txtAppend = message.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-        
         let urlWhats = "whatsapp://send?phone=\(number)&text=\(txtAppend)"
+        
         if let whatsappURL = URL(string: urlWhats) {
             if UIApplication.shared.canOpenURL(whatsappURL){
                 if #available(iOS 10.0, *) {
@@ -662,6 +756,25 @@ struct WhatsappWidgetConfig{
         
     }
     
+    public func openChat(data: GeneralChat,preMessage: String, completion: ((_ success: Bool, _ error: Error?) -> Void)? ) {
+        guard appUserType == .customer else {
+            return
+        }
+        
+        checkForIntialization { (success, error) in
+            guard success else {
+                completion?(success, error)
+                return
+            }
+            var fuguChat = FuguNewChatAttributes(transactionId: data.uniqueChatId, userUniqueKey: data.userUniqueId, otherUniqueKey: nil, tags: data.tags, channelName: data.channelName, preMessage: preMessage, groupingTag: data.groupingTags)
+            fuguChat.hideBackButton = data.hideBackButton
+            
+                FuguFlowManager.shared.showFuguChat(fuguChat, createConversationOnStart: true)
+            
+            completion?(true, nil)
+        }
+    }
+    
     public func openChatScreen(withTransactionId transactionId: String, tags: [String]? = nil, channelName: String, message: String = "", userUniqueKey: String? = nil, isInAppMessage: Bool = false, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         
         guard appUserType == .customer else {
@@ -730,18 +843,52 @@ struct WhatsappWidgetConfig{
             return 0
         }
         
-        
         let obj = UnreadCount.unreadCountList[userUniqueKey]
         return obj == nil ? 0 : obj!.count
-    }
-    
-    public func configureRecordingButtonOnChatScreen(is enabled: Bool){
-        self.disableRecordingButton = !enabled
     }
     
     public func getUnreadCountForAgent(){
         UnreadCount.getAgentTotalUnreadCount { (result) in
             
+        }
+    }
+    
+    public func configureRecordingButtonOnChatScreen(is enabled: Bool){
+        self.isRecordingButtonEnabled = enabled
+        self.disableRecordingButton = !enabled
+    }
+
+    /// Shows an image and text in the middle of a conversation that has no messages yet.
+    /// It hides by itself once the conversation has a message.
+    /// The image is only shown when text is set too.
+    ///
+    /// - Parameters:
+    ///   - text: text to show; nil or empty turns the empty state off.
+    ///   - image: image shown above the text; leave out for text only.
+    public func setEmptyChatState(text: String?, image: UIImage? = nil) {
+        self.emptyChatText = text
+        self.emptyChatImage = image
+    }
+    
+    
+    public func openChatByAgentEmail(on viewController: UIViewController? = nil, data: GeneralChat, agentEmail: String? = "", completion: ((_ success: Bool, _ error: Error?) -> Void)? ) {
+        guard appUserType == .customer else {
+            return
+        }
+        
+        checkForIntialization { (success, error) in
+            guard success else {
+                completion?(success, error)
+                return
+            }
+            var fuguChat = FuguNewChatAttributes(transactionId: data.uniqueChatId, userUniqueKey: data.userUniqueId, otherUniqueKey: nil, tags: data.tags, channelName: data.channelName, preMessage: "", groupingTag: data.groupingTags, agentEmail: agentEmail ?? "")
+            fuguChat.hideBackButton = data.hideBackButton
+            if let vc = viewController {
+                FuguFlowManager.shared.showFuguChat(on: vc, chat: fuguChat, createConversationOnStart: true)
+            } else {
+                FuguFlowManager.shared.showFuguChat(fuguChat, createConversationOnStart: true)
+            }
+            completion?(true, nil)
         }
     }
     
@@ -765,7 +912,6 @@ struct WhatsappWidgetConfig{
             completion?(true, nil)
         }
     }
-    
     
     public func showPeerChatWith(data: PeerToPeerChat, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         guard appUserType == .customer else {
@@ -840,7 +986,6 @@ struct WhatsappWidgetConfig{
     private func findChannelAndStartCall(data: PeerToPeerChat, callType: CallType, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         let uuid: String = String.uuid()
         let peer = User(name: data.peerName, imageURL: data.otherUserImage?.absoluteString, userId: -222)
-        CallManager.shared.startConnection(peerUser: peer, muid: uuid, callType: callType, completion: { success in })
         
         let attributes = FuguNewChatAttributes(transactionId: data.uniqueChatId ?? "", userUniqueKey: data.userUniqueId, otherUniqueKey: data.idsOfPeers, tags: nil, channelName: data.channelName, preMessage: "", groupingTag: nil)
         
@@ -995,8 +1140,7 @@ struct WhatsappWidgetConfig{
         })
     }
     
-    //MARK:- Set Language
-    
+    //MARK: - Set Language
     public func setLanguage(_ code : String){
         if BussinessProperty.current.buisnessLanguageArr?.contains(where: {$0.lang_code == code}) ?? false{
             UserDefaults.standard.set(code, forKey: DefaultName.selectedLanguage.rawValue)
@@ -1007,7 +1151,15 @@ struct WhatsappWidgetConfig{
             getAllStrings()
         }
     }
-    
+
+    /// Persists a language code without validating it against the business's supported
+    /// language list, and without triggering `getAllStrings()`. Use this when the language
+    /// needs to be set before the SDK is initialized (e.g. for the standalone WhatsApp/QR
+    /// login flow), since `setLanguage` depends on `BussinessProperty.current.buisnessLanguageArr`,
+    /// which is only populated after login.
+    public func setLanguageWithoutValidation(_ code: String) {
+        UserDefaults.standard.set(code, forKey: DefaultName.selectedLanguage.rawValue)
+    }
     
     // MARK: - Helpers
     public func switchEnvironment(_ envType: HippoEnvironment, devDomain: Int = 0) {
@@ -1057,7 +1209,6 @@ struct WhatsappWidgetConfig{
     public func selectedPaymentPlanType(type: [Int]) {
         HippoProperty.setPaymentPlanType(type: type)
     }
-    
     
     public func setNewConversationBotGroupId(botGroupId: String){
         HippoProperty.setNewConversationBotGroupId(botGroupId: botGroupId)
@@ -1114,7 +1265,6 @@ struct WhatsappWidgetConfig{
         }
     }
     
-    
     public func isHippoUserChannelSubscribe() -> Bool {
         var checkStatus = false
         self.checkForChannelSubscribe(completion: { (success, error) in
@@ -1134,20 +1284,34 @@ struct WhatsappWidgetConfig{
         HippoConfig.shared.strings = stringsObject
     }
     
-    public func getUnreadAnnouncementCount(completion: @escaping (Int) -> Void){
-           HippoUserDetail.getUnreadAnnouncementCount(completion: { count in
-               self.localAnnouncementUnreadCount = count
-               HippoConfig.shared.delegate?.hippoAnnouncementCustomerUnreadCount(count)
-           })
-       }
+    public func fetchChatUnreadCount(channelId: Int? = nil, completion: @escaping (Int) -> Void){
+        HippoUserDetail.fetchChatUnreadCount(channelId: channelId,completion: { count in
+            completion(count)
+        })
+    }
+
     
-    public func managePromotionOrP2pCount(_ userInfo: [String:Any]){
+    public func fetchAgentChatUnreadCount(transactionId: String? = nil,userUniquekey: String? = nil, completion: @escaping (Int) -> Void){
+        HippoUserDetail.fetchAgentChatUnreadCount(transactionId: transactionId,userUniquekey:userUniquekey,completion: { count in
+            completion(count)
+        })
+    }
+
+    public func getUnreadAnnouncementCount(completion: @escaping (Int) -> Void){
+        HippoUserDetail.getUnreadAnnouncementCount(completion: { count in
+            self.localAnnouncementUnreadCount = count
+            HippoConfig.shared.delegate?.hippoAnnouncementCustomerUnreadCount(count)
+        })
+    }
+    
+    public func managePromotionOrP2pCount(_ userInfo: [String:Any], isOpenendFromPush: Bool = false){
         if userInfo["is_announcement_push"] as? Bool == true, let channel_id = userInfo["channel_id"] as? Int{
             if HippoConfig.shared.appUserType == .customer{
-                         HippoConfig.shared.localAnnouncementUnreadCount += 1
-                         HippoConfig.shared.delegate?.hippoAnnouncementCustomerUnreadCount(HippoConfig.shared.localAnnouncementUnreadCount)
-                     }
-                     
+                HippoConfig.shared.localAnnouncementUnreadCount += 1
+                HippoConfig.shared.delegate?.hippoAnnouncementCustomerUnreadCount(HippoConfig.shared.localAnnouncementUnreadCount)
+            }
+            
+         HippoConfig.shared.hitStatsApi(userInfo: userInfo, sendSessionTym: false, channelId: channel_id)
             if !(getLastVisibleController() is PromotionsViewController){
                 if var channelArr = UserDefaults.standard.value(forKey: DefaultName.announcementUnreadCount.rawValue) as? [String]{
                     if !channelArr.contains(String(channel_id)){
@@ -1159,34 +1323,51 @@ struct WhatsappWidgetConfig{
             }else{
                 let visibleController = getLastVisibleController()
                 if let promotionVC = visibleController as? PromotionsViewController {
-                    promotionVC.getDataOrUpdateAnnouncement([channel_id], isforReadMore: false)
+                  //  promotionVC.getDataOrUpdateAnnouncement([channel_id], isforReadMore: false, isOpenedFromPush: isOpenendFromPush)
+                    promotionVC.callGetAnnouncementsApi()
                 }
                 HippoNotification.removeAllAnnouncementNotification()
             }
         }else{
-            if let data = P2PUnreadData.shared.getData(with: userInfo["chat_transaction_id"] as? String ?? ""), let otherUserUniqueKey = ((userInfo["user_unique_key"] as? [String])?.filter{$0 != HippoConfig.shared.userDetail?.userUniqueKey}.first){
-                if (data.channelId ?? -1) < 0, otherUserUniqueKey != ""{
-                    let id = ((userInfo["chat_transaction_id"] as? String ?? "") + "-" + otherUserUniqueKey)
-                    if data.id == id{
-                        P2PUnreadData.shared.updateChannelId(transactionId: userInfo["chat_transaction_id"] as? String ?? "", channelId: userInfo["channel_id"] as? Int ?? -1, count: 1, muid: userInfo["muid"] as? String ?? "", otherUserUniqueKey: otherUserUniqueKey)
-                        
-                    }
-                }else if (data.channelId ?? -1) < 0{
-                    P2PUnreadData.shared.updateChannelId(transactionId: userInfo["chat_transaction_id"] as? String ?? "", channelId: userInfo["channel_id"] as? Int ?? -1, count: 1, muid: userInfo["muid"] as? String ?? "", otherUserUniqueKey: nil)
-                }
-            }
+            updateP2PCountFromPush(userInfo)
+
             if currentUserType() == .customer{
                 if let vc = getLastVisibleController() as? AllConversationsViewController{
                     vc.updateChannelsWithrespectToPush(pushInfo: userInfo)
                 }else{
-                    
                     updateStoredUnreadCountFor(toIncreaseCount: true, with : userInfo)
                     pushTotalUnreadCount()
-                    
                 }
             }
         }
     }
+
+    /// Adds 1 to the saved p2p count when a chat push arrives.
+    /// Before, the count was only set (to 1) when the channel id wasn't known yet,
+    /// so messages that arrived in the background were never counted.
+    private func updateP2PCountFromPush(_ userInfo: [String: Any]) {
+        let transactionId = userInfo["chat_transaction_id"] as? String ?? ""
+        let pushChannelId = userInfo["channel_id"] as? Int ?? -1
+        guard !transactionId.isEmpty, pushChannelId > 0,
+              pushChannelId != getCurrentChannelId(),
+              let data = P2PUnreadData.shared.getData(with: transactionId) else { return }
+
+        // Payloads have used both key names.
+        let peerKeys = (userInfo["user_unique_keys"] ?? userInfo["user_unique_key"]) as? [String]
+        let myKey = HippoConfig.shared.userDetail?.userUniqueKey
+        var otherKey = peerKeys?.first { $0 != myKey } ?? ""
+        if otherKey.isEmpty, let savedId = data.id, savedId.hasPrefix(transactionId + "-") {
+            // Keep the saved id so later updates still match.
+            otherKey = String(savedId.dropFirst(transactionId.count + 1))
+        }
+        guard data.id == transactionId + "-" + otherKey else { return }
+
+        let savedChannelId = data.channelId ?? -1
+        let newCount = savedChannelId < 0 ? 1 : (data.count ?? 0) + 1
+        // updateChannelId skips the push if the live connection already counted the same muid.
+        P2PUnreadData.shared.updateChannelId(transactionId: transactionId, channelId: pushChannelId, count: newCount, muid: userInfo["muid"] as? String, otherUserUniqueKey: otherKey)
+    }
+
     public func showNotification(userInfo: [String: Any]) -> Bool {
         let notificationType = Int.parse(values: userInfo, key: "notification_type") ?? -1
         
@@ -1203,7 +1384,6 @@ struct WhatsappWidgetConfig{
         }
         return false
     }
-    
     
     public func handleVoipNotification(payload: [AnyHashable: Any], completion: @escaping () -> Void) {
         guard let json = payload as? [String: Any] else {
@@ -1339,7 +1519,7 @@ struct WhatsappWidgetConfig{
             //promotionsVC.callGetAnnouncementsApi()
             //                return
             HippoNotification.getAllAnnouncementNotifications {
-                promotionVC.refreshData()
+                promotionVC.refreshData(isOpenedFromPush: HippoConfig.shared.isOpenedFromPush ?? false)
                 HippoConfig.shared.isOpenedFromPush = false
                 return
             }
@@ -1448,7 +1628,7 @@ struct WhatsappWidgetConfig{
                 conVC.label = channelName
                 //                conVC.navigationTitleLabel?.text = channelName
                 if isSendingDisabled {
-                    conVC.disableSendingReply()
+                    conVC.disableSendingReply(message: HippoStrings.cannotReplyToConversation)
                 }
                 conVC.getMessagesBasedOnChannel(fromMessage: 1, pageEnd: nil, completion: {(_) in
                     conVC.enableSendingNewMessages()
@@ -1461,7 +1641,7 @@ struct WhatsappWidgetConfig{
                 conVC.labelId = labelId
                 //                conVC.navigationTitleLabel?.text = channelName
                 if isSendingDisabled {
-                    conVC.disableSendingReply()
+                    conVC.disableSendingReply(message: HippoStrings.cannotReplyToConversation)
                 }
                 conVC.fetchMessagesFrom1stPage()
             }
@@ -1663,6 +1843,4 @@ extension HippoConfig{
         topVC.present(navVC, animated: true, completion: nil)
     }
 }
-
-
 

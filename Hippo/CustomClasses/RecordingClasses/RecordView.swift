@@ -172,8 +172,9 @@ public class RecordView: UIView, CAAnimationDelegate {
     private func prepareToStartRecording(recordButton: RecordButton) {
         resetTimer()
 
-        //start timer
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateDuration), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+            self?.updateDuration()
+        }
 
 
         //reset all views to default

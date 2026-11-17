@@ -10,6 +10,8 @@ import Foundation
 
 struct Address : Codable {
     var address : String?
+    /// Place name, when the search returns one.
+    var name : String?
     var lat : Double?
     var lng : Double?
     

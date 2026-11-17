@@ -25,8 +25,9 @@ class PromotionCellDataModel
     var skipBot:String = ""
     var customAttributeData : [String : Any]?
     var isAddedFromPush : Bool = false
-    
-    
+    var seenStatus: Int = 0
+
+
     init?(dict: [String: Any])
     {
         self.channelID = Int.parse(values: dict, key: "channel_id") ?? 1
@@ -35,6 +36,7 @@ class PromotionCellDataModel
         self.description = (dict["description"] as? String ?? "")
         self.createdAt = dict["created_at"] as? String ?? ""
         self.userID = Int.parse(values: dict, key: "user_id") ?? 1
+        self.seenStatus = Int.parse(values: dict, key: "seen_status") ?? 0
         
         if let tempDict = dict["custom_attributes"] as? [String:Any]
        {

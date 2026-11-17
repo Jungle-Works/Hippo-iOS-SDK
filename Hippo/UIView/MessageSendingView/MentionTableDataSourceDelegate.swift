@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol MentionTableDelegate: class {
+protocol MentionTableDelegate: AnyObject {
     func mentionSelected(_ agent: Agent)
 }
 

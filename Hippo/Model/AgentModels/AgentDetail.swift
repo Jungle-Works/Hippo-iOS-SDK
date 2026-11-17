@@ -284,11 +284,15 @@ extension AgentDetail {
             let authToken = HippoConfig.shared.agentDetail?.oAuthToken
             let app_type = HippoConfig.shared.agentDetail?.app_type ?? AgentDetail.defaultAppType
             let attributes = HippoConfig.shared.agentDetail?.customAttributes
-            
+            let previousAppSecretKey = HippoConfig.shared.agentDetail?.appSecrectKey
+
             let detail = AgentDetail(dict: data)
             detail.oAuthToken = authToken ?? detail.fuguToken
             detail.app_type = app_type
             detail.customAttributes = attributes
+            if detail.appSecrectKey.isEmpty {
+                detail.appSecrectKey = previousAppSecretKey ?? ""
+            }
             HippoConfig.shared.agentDetail = detail
             
             if let online_status = data["online_status"] as? String, let status = AgentStatus.init(rawValue: online_status) {
@@ -306,7 +310,9 @@ extension AgentDetail {
             BussinessProperty.current.videoSdkRecordingEnabled = Bool.parse(key: "video_sdk_recording_enabled", json: data)
             if let businessProperty = data["business_property"] as? [String: Any] {
                 BussinessProperty.current.isCallInviteEnabled = Bool.parse(key: "is_call_invite_enabled", json: businessProperty)
-                
+                BussinessProperty.current.isAiBotEnabled = Bool.parse(key: "is_ai_bot_enabled", json: businessProperty)
+                HippoUserDetail.fetchBusinessConfiguration()
+
                 BussinessProperty.current.editDeleteExpiryTime = CGFloat(Int.parse(values: businessProperty, key: "edit_delete_message_duration") ?? 0)
             
                 BussinessProperty.current.encodeToHTMLEntities = Bool.parse(key: "encode_to_html_entites", json: businessProperty)
@@ -398,7 +404,7 @@ extension AgentDetail {
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: deviceDetails, options: .prettyPrinted)
             
-            var service = (NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! ) as String
+            var service = String(data: jsonData, encoding: .utf8) ?? ""
             service = service.replacingOccurrences(of: "\n", with: "")
             service = service.replacingOccurrences(of: "\\", with: "")
             
@@ -456,6 +462,7 @@ extension AgentDetail {
         
         return params
     }
+    
     internal static func getParamsForAuthLogin() -> [String: Any] {
         guard let agentDetail = HippoConfig.shared.agentDetail else {
             return [:]

@@ -126,13 +126,14 @@ class HTTPClient {
     @discardableResult
     class func makeConcurrentConnectionWith(method: HttpMethodType, enCodingType: EncodingType = .json, showAlert: Bool = false, showAlertInDefaultCase: Bool = false, showActivityIndicator: Bool = false, para: [String: Any]? = nil, baseUrl: String = HippoConfig.shared.baseUrl, extendedUrl: String, callback: @escaping ServiceResponse) -> URLSessionDataTask? {
         
-        print("Base server url ---------", HippoConfig.shared.baseUrl, "\nsocket url --------", HippoConfig.shared.fayeBaseURLString)
-        
+        HippoConfig.shared.log.debug(("Base server url ---------", HippoConfig.shared.baseUrl, "\nsocket url --------", HippoConfig.shared.fayeBaseURLString , "\n Requested end point ---------", extendedUrl), level: .info)
+
         guard isConnectedToInternet() else {
             let error = NetworkError()
             callback(nil, error, nil, 404)
             return nil
         }
+        
         var additionalParams = [String : Any]()
         if baseUrl != FuguEndPoints.searchAddress.rawValue {
             additionalParams = [
@@ -150,7 +151,12 @@ class HTTPClient {
         }
         
         additionalParams += para ?? [:]
-        
+
+        if HippoConfig.shared.apiLogging == 1 {
+            print("[HippoSDK] ▶ REQUEST  \(baseUrl)\(extendedUrl)")
+            print("[HippoSDK]   Params : \(additionalParams)")
+        }
+
         var newExtendedURL = extendedUrl
         
         switch enCodingType {
@@ -176,12 +182,10 @@ class HTTPClient {
         case .url:
             break
         }
-        
-        
-        
+
         //DataTask
         let dataTask = HTTPClient.performDataTaskWith(request: mutableRequest, showAlert: showAlert, showAlertInDefaultCase: showAlertInDefaultCase, showActivityIndicator: showActivityIndicator, callback: callback, extendedUrl: extendedUrl)
-        
+
         dataTask.resume()
         
         return dataTask
@@ -223,7 +227,12 @@ class HTTPClient {
         
         //appending parameters
         additionalParams += para ?? [:]
-        
+
+        if HippoConfig.shared.apiLogging == 1 {
+            print("[HippoSDK] ▶ MULTIPART REQUEST  \(baseUrl)\(extendedUrl)")
+            print("[HippoSDK]   Params : \(additionalParams)  Files : \(fileList.count)")
+        }
+
         let timeout: Double = 30 + Double(15 * (fileList.count))
         var mutableRequest = HTTPClient.createRequestWith(method: method, timeout: timeout, baseUrl: baseUrl, extendedUrl: extendedUrl, contentType: "multipart/form-data; boundary=\(boundary)")
         
@@ -272,7 +281,8 @@ class HTTPClient {
         var mutableRequest = URLRequest(url: url)
         mutableRequest.timeoutInterval = timeout
         mutableRequest.httpMethod = method.rawValue
-        
+        mutableRequest.httpShouldHandleCookies = false
+
         mutableRequest.setValue(contentType, forHTTPHeaderField: "Content-Type")
         return mutableRequest
     }
@@ -328,6 +338,15 @@ class HTTPClient {
                         statusCode = httpUrlResponce.statusCode
                     }
                     
+                    if HippoConfig.shared.apiLogging == 1 {
+                        print("[HippoSDK] ◀ RESPONSE  \(urlResponse?.url?.absoluteString ?? "NO URL")")
+                        print("[HippoSDK]   StatusCode : \(statusCode)")
+                        if let httpUrlResponce = urlResponse as? HTTPURLResponse {
+                            print("[HippoSDK]   Headers : \(httpUrlResponce.allHeaderFields)")
+                        }
+                        print("[HippoSDK]   Body : \(responseObject ?? [:])")
+                    }
+
                     if SERVERS.devUrl.contains(HippoConfig.shared.baseUrl){
                         sendCurl(request: request, code: statusCode)
                     }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol BroadcastListViewDelegate: class {
+protocol BroadcastListViewDelegate: AnyObject {
     func broadcasterUpdated(broadcaster: HippoBroadcaster)
 }
 
@@ -301,13 +301,7 @@ extension BroadcastSelectionViewController: UITableViewDataSource {
 //            label.layer.borderWidth = 0.5
 //            label.layer.borderColor = UIColor.borderStrokeColor.cgColor
 //            label.layer.cornerRadius = 10.0
-            var widthIs: CGFloat = 0.0
-            
-            #if swift(>=4.0)
-             widthIs = CGFloat(label.text!.boundingRect(with: label.frame.size, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: label.font], context: nil).size.width)
-            #else
-                widthIs = CGFloat(label.text!.boundingRect(with: label.frame.size, options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: label.font], context: nil).size.width)
-            #endif
+            let widthIs: CGFloat = CGFloat((label.text ?? "").boundingRect(with: label.frame.size, options: .usesLineFragmentOrigin, attributes: [.font: label.font as Any], context: nil).size.width)
             
             label.frame = CGRect(x: 10, y: 5.0, width: widthIs + 20, height: heightFoHeader)
             

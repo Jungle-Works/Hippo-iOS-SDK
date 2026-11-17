@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol HippoMessageTextViewImageDelegate: class {
+protocol HippoMessageTextViewImageDelegate: AnyObject {
     func imagePasted()
 }
 

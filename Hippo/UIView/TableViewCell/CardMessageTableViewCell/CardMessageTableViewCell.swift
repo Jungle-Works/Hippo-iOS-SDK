@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol CardMessageDelegate: class {
+protocol CardMessageDelegate: AnyObject {
     func cardSelected(cell: CardMessageTableViewCell, card: MessageCard, message: HippoMessage)
     func labelContainerClicked(cell: CardMessageTableViewCell, card: MessageCard, message: HippoMessage)
 }

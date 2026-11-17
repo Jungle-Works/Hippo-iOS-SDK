@@ -80,7 +80,7 @@ class FilterManager: NSObject {
         AgentConversationManager.selectedCustomerObject = nil
         FilterManager.shared = FilterManager()
         FilterManager.shared.setChatArray(for: convoType)
-        BussinessProperty.current.isFilterApplied = false
+        BussinessProperty.current.isFilterApplied = false        
     }
     
     
@@ -213,7 +213,6 @@ class FilterManager: NSObject {
                     }
                     
                     callback(true, attributeArray)
-                    print(data, attributeArray)
                 }
             }
         }
