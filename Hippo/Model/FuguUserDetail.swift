@@ -447,6 +447,10 @@ public class UserTag: NSObject {
             let whatsappContactNumber = whatsappConfig["whatsappContactNumber"] as? String ?? ""
             let whatsappEnabledForAll = whatsappConfig["whatsappEnabledForAll"] as? Int ?? 0
             HippoConfig.shared.whatsappWidgetConfig = WhatsappWidgetConfig(defaultMessage: defaultMessage, title: title, subTitle: subTitle, defaultUserReply: defaultUserReply, whatsappContactNumber: whatsappContactNumber, whatsappEnabledForAll: whatsappEnabledForAll)
+        } else {
+            // Disabled (or missing) on the server — drop any config cached from an earlier put-user
+            // so isWhatsappEnabled doesn't keep reporting true.
+            HippoConfig.shared.whatsappWidgetConfig = nil
         }
         
         

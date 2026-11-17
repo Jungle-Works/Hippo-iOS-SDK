@@ -140,7 +140,7 @@ class AllConversationsViewController: UIViewController, NewChatSentDelegate {
         view_NavigationBar.leftButton.tintColor = .black
         view_NavigationBar.image_back.isHidden = true
         //Configuring SwitchButton
-        if let whatsappData = HippoConfig.shared.whatsappWidgetConfig, whatsappData.whatsappEnabledForAll == 1{
+        if !HippoConfig.shared.hideWhatsappIcon, let whatsappData = HippoConfig.shared.whatsappWidgetConfig, whatsappData.whatsappEnabledForAll == 1{
             view_NavigationBar.whtsappBtn.isHidden = false
             view_NavigationBar.whtsappBtn.addTarget(self, action: #selector(btnWhatsappTapped), for: .touchUpInside)
         }

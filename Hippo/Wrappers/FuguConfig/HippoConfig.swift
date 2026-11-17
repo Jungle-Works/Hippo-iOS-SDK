@@ -243,7 +243,19 @@ struct WhatsappWidgetConfig{
     public var shouldShowSlowInternetBar : Bool?
     
     var whatsappWidgetConfig: WhatsappWidgetConfig?
-    
+
+    /// Set by `presentChatsOrWhatsApp()`; reset by the plain chat-list entry points.
+    /// When true, the all-chats screen hides its WhatsApp nav-bar button.
+    private(set) var hideWhatsappIcon: Bool = false
+
+    /// True when the business has WhatsApp support enabled and a contact number is configured.
+    /// The config comes from the put-user API, so this is false until the user has been
+    /// initialised with Hippo. Host apps can check this before showing their own WhatsApp button.
+    public var isWhatsappEnabled: Bool {
+        guard let config = whatsappWidgetConfig else { return false }
+        return !config.whatsappContactNumber.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+
     var isOpenedFromPush : Bool?
     var sessionStartTime: Date?
     var tempChannelId: Int?
@@ -591,16 +603,44 @@ struct WhatsappWidgetConfig{
     
     // MARK: - Open Chat UI Methods
     public func presentChatsViewController() {
+        hideWhatsappIcon = false
         if let _ = whatsappWidgetConfig, let redirectDirectly = userDetail?.redirectToWhatsapp, redirectDirectly {
             openWhatsappIfEnabled()
             return
         }
-        
+
+        presentChatsInternal()
+    }
+
+    /// Entry point for the host app's support button. If WhatsApp is enabled for the
+    /// business it opens WhatsApp directly; otherwise it opens the all-chats screen with
+    /// the WhatsApp nav-bar button hidden.
+    public func presentChatsOrWhatsApp() {
+        if isWhatsappEnabled {
+            openWhatsApp()
+        } else {
+            hideWhatsappIcon = true
+            presentChatsInternal()
+        }
+    }
+
+    /// Opens a WhatsApp chat with the business's support number, with the default reply
+    /// pre-filled. Does nothing if `isWhatsappEnabled` is false.
+    /// - Returns: true if WhatsApp was launched, false if it is not enabled/configured.
+    @discardableResult
+    public func openWhatsApp() -> Bool {
+        guard isWhatsappEnabled else { return false }
+        openWhatsappIfEnabled()
+        return true
+    }
+
+    private func presentChatsInternal() {
         AgentDetail.setAgentStoredData()
         checker.presentChatsViewController()
     }
-    
+
     public func presentFlutterChatsViewController() {
+        hideWhatsappIcon = false
         if let _ = whatsappWidgetConfig, let redirectDirectly = userDetail?.redirectToWhatsapp, redirectDirectly {
             openWhatsappIfEnabled()
             return
@@ -641,6 +681,7 @@ struct WhatsappWidgetConfig{
         guard let navigationController = UIStoryboard(name: "FuguUnique", bundle: FuguFlowManager.bundle).instantiateViewController(withIdentifier: "FuguCustomerNavigationController") as? UINavigationController else {
             return nil
         }
+        hideWhatsappIcon = false
         (navigationController.viewControllers.first as? AllConversationsViewController)?.shouldHideBackBtn = true
         
         return navigationController
@@ -674,9 +715,13 @@ struct WhatsappWidgetConfig{
     func openWhatsappIfEnabled(){
         guard let whatsappData = HippoConfig.shared.whatsappWidgetConfig else {return}
         let message = whatsappData.defaultUserReply
-        let number = whatsappData.whatsappContactNumber
-        
-        let txtAppend = message.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        // Strip separators ("+", spaces, dashes, brackets) — WhatsApp wants digits only.
+        let number = whatsappData.whatsappContactNumber.filter { $0.isASCII && $0.isNumber }
+
+        // .urlQueryAllowed leaves &, +, = and # unescaped, which would truncate/corrupt the text param.
+        var textAllowed = CharacterSet.urlQueryAllowed
+        textAllowed.remove(charactersIn: "&+=#?")
+        let txtAppend = message.addingPercentEncoding(withAllowedCharacters: textAllowed) ?? ""
         let urlWhats = "whatsapp://send?phone=\(number)&text=\(txtAppend)"
         
         if let whatsappURL = URL(string: urlWhats) {
@@ -701,6 +746,7 @@ struct WhatsappWidgetConfig{
     }
     
     class public func showChats(on viewController: UIViewController) {
+        HippoConfig.shared.hideWhatsappIcon = false
         AgentDetail.setAgentStoredData()
         HippoConfig.shared.checker.presentChatsViewController(on: viewController)
     }
