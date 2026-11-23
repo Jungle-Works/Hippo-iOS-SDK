@@ -225,6 +225,7 @@ class CallManager {
     func voipNotificationRecieved(payloadDict: [String: Any]) {
         #if canImport(HippoCallClient)
         guard let peer = HippoUser(json: payloadDict), let channelID = Int.parse(values: payloadDict, key: "channel_id") else {
+            NSLog("[HippoCall] STOP: push has no usable caller or channel_id")
             return
         }
         let channel = FuguChannelPersistancyManager.shared.getChannelBy(id: channelID)
@@ -232,6 +233,7 @@ class CallManager {
         restoreCurrentUserForKilledStateCall()
 
         guard let currentUser = getCurrentUser() else {
+            NSLog("[HippoCall] STOP: logged-in user could not be restored")
             return
         }
         HippoCallClient.shared.voipNotificationRecieved(dictionary: payloadDict, peer: peer, signalingClient: channel, currentUser: currentUser, isInviteEnabled: BussinessProperty.current.isCallInviteEnabled ?? false)
@@ -277,12 +279,18 @@ class CallManager {
     /// rebuild the logged-in user from what was persisted at login. Agent first (its
     /// login data is stored; a customer login clears it), then the cached customer.
     /// Without this, the call joins Jitsi as "Visitor" with no photo.
-    private func restoreCurrentUserForKilledStateCall() {
+    func restoreCurrentUserForKilledStateCall() {
         if HippoConfig.shared.agentDetail == nil {
             HippoConfig.shared.setAgentStoredData()
         }
         if HippoConfig.shared.agentDetail == nil, HippoConfig.shared.userDetail == nil {
             HippoConfig.shared.userDetail = HippoUserDetail.restoredFromCallIdentityCache()
+        }
+        // Login normally passes these, but a VoIP relaunch does not run the login flow.
+        if HippoConfig.shared.appUserType == .agent {
+            HippoConfig.shared.passAppSecretKeyToHippoConfig(agentToken: HippoConfig.shared.agentDetail?.fuguToken ?? "", userType: .agent)
+        } else {
+            HippoConfig.shared.passAppSecretKeyToHippoConfig(userType: .customer)
         }
     }
 

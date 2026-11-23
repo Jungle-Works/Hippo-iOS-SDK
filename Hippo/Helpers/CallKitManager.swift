@@ -7,6 +7,7 @@
 
 import Foundation
 import CallKit
+import AVFoundation
 import os
 
 #if canImport(HippoCallClient)
@@ -111,16 +112,34 @@ class CallKitManager: NSObject, CXProviderDelegate {
     // MARK: - CXProviderDelegate
     func provider(_ provider: CXProvider, perform action: CXEndCallAction) {
         HippoCallClient.shared.actionFromCallKit(isAnswered: false, completion: { _ in })
+        CallKitAudioBridge.shared.callEnded()
         action.fulfill()
     }
     
     func provider(_ provider: CXProvider, perform action: CXAnswerCallAction) {
+        CallKitAudioBridge.shared.willAnswer()
         HippoCallClient.shared.actionFromCallKit(isAnswered: true) { success in
-            success ? action.fulfill() : action.fail()
+            if success {
+                action.fulfill()
+                CallKitAudioBridge.shared.answerFulfilled()
+            } else {
+                action.fail()
+                CallKitAudioBridge.shared.answerFailed()
+            }
         }
     }
     
-    func providerDidReset(_ provider: CXProvider) {}
+    func provider(_ provider: CXProvider, didActivate audioSession: AVAudioSession) {
+        CallKitAudioBridge.shared.didActivate(audioSession)
+    }
+    
+    func provider(_ provider: CXProvider, didDeactivate audioSession: AVAudioSession) {
+        CallKitAudioBridge.shared.didDeactivate(audioSession)
+    }
+    
+    func providerDidReset(_ provider: CXProvider) {
+        CallKitAudioBridge.shared.reset()
+    }
     
     
     // MARK: - Deinitializer

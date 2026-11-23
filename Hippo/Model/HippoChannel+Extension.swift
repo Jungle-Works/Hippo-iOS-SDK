@@ -30,25 +30,30 @@ extension HippoChannel: SignalingClient {
         
     }
     
+    enum SignalSocketAction: Equatable {
+        case subscribeNow
+        case waitForConnection
+        case startConnection
+    }
+
+    static func signalSocketAction(isSocketConnected: Bool, isSocketConnecting: Bool) -> SignalSocketAction {
+        if isSocketConnected { return .subscribeNow }
+        return isSocketConnecting ? .waitForConnection : .startConnection
+    }
+
     func connectClient(completion: @escaping (Bool) -> Void) {
+        guard Thread.isMainThread else {
+            DispatchQueue.main.async { self.connectClient(completion: completion) }
+            return
+        }
         guard !isConnected() else {
             os_log("[connectClient] already connected — delivering signal immediately", log: channelLog, type: .default)
             completion(true)
             return
         }
 
-        // NOTE: isSubscribed() is NOT checked here intentionally.
-        // On locked screen / background, the socket disconnects but subscribedChannel
-        // still shows stale "true" entries. Returning false there would cause sendJitsiObject
-        // to fire on a dead socket and silently drop the REJECT/HUNGUP signal.
-        // We always go through the full reconnect path when socket is not connected.
-
-        os_log("[connectClient] socket not connected — waiting for reconnect to deliver signal", log: channelLog, type: .default)
-
-        // Socket not yet connected — observe socketConnected, then subscribe the channel.
-        // subscribe(completion:) silently drops its completion argument, so we can't rely
-        // on subscribeChannel to call back. Instead: connect → wait for the notification →
-        // subscribe with ACK → call completion.
+        // A stale subscription must not send on a dead socket, and a live socket that has
+        // not joined this channel must not wait for a connect event that already happened.
         var didComplete = false
         var observer: NSObjectProtocol?
 
@@ -59,36 +64,35 @@ extension HippoChannel: SignalingClient {
                 NotificationCenter.default.removeObserver(obs)
                 observer = nil
             }
-            os_log("[connectClient] socket ready, delivering queued signal (success=%{public}@)", log: channelLog, type: .default, "\(success)")
+            os_log("[connectClient] delivering queued signal (success=%{public}@)", log: channelLog, type: .default, "\(success)")
             completion(success)
         }
 
-        observer = NotificationCenter.default.addObserver(
-            forName: .socketConnected,
-            object: nil,
-            queue: .main
-        ) { [weak self] _ in
-            guard let self = self else { finish(false); return }
-            SocketClient.shared.subscribeSocketChannel(channel: self.id.description) { (_, success) in
-                finish(success)
+        let channelID = id.description
+        let subscribeThenFinish = {
+            SocketClient.shared.subscribeSocketChannel(channel: channelID) { (_, success) in
+                DispatchQueue.main.async { finish(success) }
             }
         }
 
-        // Only connect if not already in the process of connecting.
-        // SocketClient.connect() creates a brand-new SocketClient, which tears down the
-        // previous socket (triggering onDisconnectCallBack → another connect() → storm).
         let status = SocketClient.shared.socket?.status
-        if status != .connected && status != .connecting {
-            os_log("[connectClient] kicking off socket connect (status=%{public}@)", log: channelLog, type: .default, "\(String(describing: status))")
-            SocketClient.shared.connect()
+        let action = HippoChannel.signalSocketAction(isSocketConnected: status == .connected, isSocketConnecting: status == .connecting)
+        os_log("[connectClient] socket status=%{public}@", log: channelLog, type: .default, "\(String(describing: status))")
+        if action == .subscribeNow {
+            subscribeThenFinish()
         } else {
-            os_log("[connectClient] socket already connecting/connected, not re-creating", log: channelLog, type: .default)
+            observer = NotificationCenter.default.addObserver(forName: .socketConnected, object: nil, queue: .main) { _ in
+                subscribeThenFinish()
+            }
+            if action == .startConnection {
+                SocketClient.shared.connect()
+            }
         }
 
-        // 15-second timeout so completion is never permanently lost
+        // Never lose the signal completion if the socket cannot be reached.
         DispatchQueue.main.asyncAfter(deadline: .now() + 15) {
             if !didComplete {
-                os_log("[connectClient] TIMEOUT — socket never connected, signal dropped", log: channelLog, type: .error)
+                os_log("[connectClient] TIMEOUT — sending without confirmed subscription", log: channelLog, type: .error)
             }
             finish(false)
         }

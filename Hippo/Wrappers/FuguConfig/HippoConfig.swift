@@ -279,8 +279,9 @@ struct WhatsappWidgetConfig{
         HippoObservers.shared.enable = true
         FuguNetworkHandler.shared.fuguConnectionChangesStartNotifier()
         CallManager.shared.initCallClientIfPresent()
-        
-        
+#if canImport(HippoCallClient)
+        HippoCallClientUrl.baseUrl = baseUrl
+#endif
     }
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -1397,6 +1398,9 @@ struct WhatsappWidgetConfig{
     }
     
     public func handleVoipNotification(payloadDict: [String: Any], completion: @escaping () -> Void) {
+        NSLog("[HippoCall] VoIP push: message_type=%@ notification_type=%@ video_call_type=%@ has_muid=%@ has_channel=%@",
+              String(describing: payloadDict["message_type"]), String(describing: payloadDict["notification_type"]),
+              String(describing: payloadDict["video_call_type"]), "\(payloadDict["muid"] != nil)", "\(payloadDict["channel_id"] != nil)")
         
         if let messageType = payloadDict["message_type"] as? Int, messageType == MessageType.groupCall.rawValue{
             CallManager.shared.voipNotificationRecievedForGroupCall(payloadDict: payloadDict)

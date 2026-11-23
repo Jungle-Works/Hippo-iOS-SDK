@@ -271,7 +271,8 @@ extension SocketClient {
     }
     
     @objc private func applicationEnterBackground() {
-        if SocketClient.shared.socket?.status != .connected {
+        let status = SocketClient.shared.socket?.status
+        if status != .connected && status != .connecting {
             SocketClient.shared.connect()
         }
         print("Socket status !!!!!!!!!\(SocketClient.shared.socket?.status)")
