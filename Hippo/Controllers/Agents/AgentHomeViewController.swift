@@ -68,19 +68,31 @@ class AgentHomeViewController: HippoHomeViewController {
         }
     }
     
+    /// Resolution order: HippoConfig custom tab title → theme.*BtnText → SDK default string.
+    /// nil/blank values at each level fall through to the next.
     private func title(for tab: ConversationType) -> String {
+        let config = HippoConfig.shared
+        let candidates: [String?]
+        let fallback: String
         switch tab {
         case .myChat:
-            return HippoConfig.shared.theme.myChatBtnText ?? HippoStrings.myChats
+            candidates = [config.customMyChatTabTitle, config.theme.myChatBtnText]
+            fallback = HippoStrings.myChats
         case .allChat:
-            return HippoConfig.shared.theme.allChatBtnText ?? HippoStrings.allChats
+            candidates = [config.customAllChatTabTitle, config.theme.allChatBtnText]
+            fallback = HippoStrings.allChats
         case .p2pChat:
-            return HippoConfig.shared.theme.p2pChatBtnText ?? HippoStrings.p2pChats
+            candidates = [config.customP2pChatTabTitle, config.theme.p2pChatBtnText]
+            fallback = HippoStrings.p2pChats
         case .supportChat:
-            return HippoConfig.shared.theme.supportChatBtnText ?? HippoStrings.supportChats
+            candidates = [config.customSupportChatTabTitle, config.theme.supportChatBtnText]
+            fallback = HippoStrings.supportChats
         case .historyChat:
             return ""
         }
+        return candidates
+            .compactMap { $0?.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .first { !$0.isEmpty } ?? fallback
     }
     
     //MARK: ViewDidload
@@ -572,8 +584,8 @@ extension AgentHomeViewController {
             self.allChatButton.setBackgroundColor(color: #colorLiteral(red: 0.8156862745, green: 0.8156862745, blue: 0.8156862745, alpha: 1), forState: UIControl.State.highlighted)
             self.myChatButton.titleLabel?.font = UIFont.bold(ofSize: 15)
             self.allChatButton.titleLabel?.font = UIFont.regular(ofSize: 15)
-            self.myChatButton.setTitle(HippoConfig.shared.theme.myChatBtnText == nil ? HippoStrings.myChats : HippoConfig.shared.theme.myChatBtnText, for: .normal)
-            self.allChatButton.setTitle(HippoConfig.shared.theme.allChatBtnText == nil ? HippoStrings.allChats : HippoConfig.shared.theme.allChatBtnText, for: .normal)
+            self.myChatButton.setTitle(title(for: .myChat), for: .normal)
+            self.allChatButton.setTitle(title(for: .allChat), for: .normal)
             self.bottomLineView.backgroundColor = HippoConfig.shared.theme.themeColor
             self.view.backgroundColor = HippoConfig.shared.theme.backgroundColor
             view_NavigationBar.title = HippoConfig.shared.theme.headerText

@@ -381,7 +381,40 @@ struct WhatsappWidgetConfig{
     public func setCustomisedColorConfig(_ config: HippoColorConfig) {
         self.colorConfig = config
     }
-    
+
+    // MARK: - Custom agent home-screen tab titles
+    // nil/blank = fall back to theme.*BtnText, then the SDK's default (localised) title.
+    // Must be set before the agent home screen is opened.
+    var customMyChatTabTitle: String?
+    var customAllChatTabTitle: String?
+    var customP2pChatTabTitle: String?
+    var customSupportChatTabTitle: String?
+
+    public func setMyChatTabTitle(_ title: String?) {
+        customMyChatTabTitle = title
+    }
+
+    public func setAllChatTabTitle(_ title: String?) {
+        customAllChatTabTitle = title
+    }
+
+    public func setP2pChatTabTitle(_ title: String?) {
+        customP2pChatTabTitle = title
+    }
+
+    public func setSupportChatTabTitle(_ title: String?) {
+        customSupportChatTabTitle = title
+    }
+
+    /// Set all agent home-screen tab titles at once. Pass nil for any tab that should keep
+    /// the SDK's default title. Must be called before the home screen is opened.
+    public func setTabTitles(myChat: String?, allChat: String?, p2pChat: String?, supportChat: String?) {
+        customMyChatTabTitle = myChat
+        customAllChatTabTitle = allChat
+        customP2pChatTabTitle = p2pChat
+        customSupportChatTabTitle = supportChat
+    }
+
     public func setCredential(withAppSecretKey appSecretKey: String, appType: String? = nil, offering: Int = 0) {
         self.credentialType = FuguCredentialType.defaultType
         self.appSecretKey = appSecretKey
